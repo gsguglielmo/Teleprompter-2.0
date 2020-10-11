@@ -1,0 +1,23 @@
+{
+  "name": "teleprompter2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron .",
+    "build": "electron-packager . --overwrite"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^10.1.3",
+    "electron-packager": "^15.1.0"
+  },
+  "dependencies": {
+    "get-audio-duration": "^2.0.3",
+    "node-mp3-player": "^1.0.3",
+    "play-sound": "^1.1.3"
+  }
+}

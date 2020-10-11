@@ -1,0 +1,24 @@
+#songContainer{
+    overflow: hidden;
+}
+
+#songTitle{
+    white-space: nowrap;
+}
+
+.onAir{
+    border-color: red;
+    border-width: 10px;
+    border-style: solid;
+}
+
+.offAir{
+    border-color: green;
+    border-width: 10px;
+    border-style: solid;
+}
+
+html{
+    width: 100%;
+    height: 100%;
+}
