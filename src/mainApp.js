@@ -103,7 +103,7 @@ function createWindow () {
 
     // and load the index.html of the app.
     win2.loadFile('src/www/main.html')
-    win2.removeMenu();
+    //win2.removeMenu();
     win2.maximize();
     webContents.push(win2.webContents);
 

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Teleprompter 2.0</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="css/loading-bar.min.css">
+    <link rel="stylesheet" type="text/css" href="css/loader.css">
+    <link rel="stylesheet" type="text/css" href="css/update.css">
+</head>
+<body>
+
+<figure>
+    <div></div><div></div>
+    <div></div><div></div>
+    <div></div><div></div>
+    <div></div><div></div>
+</figure>
+
+<h2 id="updating">UPDATING</h2>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/loading-bar.min.js"></script>
+<script type="text/javascript">
+    window.$ = window.jQuery = require('./js/jquery.min.js');
+
+
+    ipcRenderer.on("updateStarted", (event, response) => {
+        $("#updating").css("display","block");
+    });
+</script>
+</body>
+</html>
