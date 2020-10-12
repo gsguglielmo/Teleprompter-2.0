@@ -1,7 +1,12 @@
+/**
+ * This module checks for updates and if not available opens the projectManager. If an update is
+ * available it will be installed automatically.
+ * */
+
 const { app,autoUpdater,dialog,BrowserWindow } = require('electron');
 const isDev = require('electron-is-dev');
 
-
+//Todo manage installation and update procedures if needed
 if (require('electron-squirrel-startup')) return app.quit();
 
 
@@ -15,6 +20,7 @@ autoUpdater.on("update-available",()=>{
     updateWindow.webContents.send("updateStarted", {});
 });
 
+//Restart the app when the update is done
 autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
     autoUpdater.quitAndInstall();
 });
@@ -28,7 +34,7 @@ autoUpdater.on("error",(err)=>{
 });
 
 function loadProjectsManager(){
-    require("./mainApp.js").createWindow();
+    require("./projectsManager.js").init();
     if(!updateWindow.isDestroyed()){
         updateWindow.close();
     }
@@ -37,6 +43,7 @@ function loadProjectsManager(){
 
 app.whenReady().then(()=>{
 
+    //Display the loading window
     const win = new BrowserWindow({
         width: 500,
         height: 320,
@@ -46,14 +53,15 @@ app.whenReady().then(()=>{
         resizable: false,
         frame: false
     })
-
-    // and load the index.html of the app.
     win.loadFile('src/www/updateCheck.html');
-    win.webContents.openDevTools({ mode: 'detach' })
 
+    //win.webContents.openDevTools({ mode: 'detach' })
     updateWindow = win;
 
+    //Update only if we are not in a development environment
     if(!isDev){
+
+        //The update checks happens only once when the app is started
         autoUpdater.checkForUpdates();
         /*
         setInterval(() => {
@@ -64,10 +72,6 @@ app.whenReady().then(()=>{
         loadProjectsManager();
     }
 
-
-
-
-    //
 });
 
 
