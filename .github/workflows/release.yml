@@ -13,7 +13,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
+  release:
     # The type of runner that the job will run on
     runs-on: windows-latest
 
@@ -27,22 +27,24 @@ jobs:
           # Set this option if you want the action to check for the latest available version that satisfies the version spec
           check-latest: true
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - name: Preparing the repository
+        uses: actions/checkout@v2
 
       # Runs a single command using the runners shell
-      - name: Go to the main directory 
+      - name: Go to the main directory
         run: cd $GITHUB_WORKSPACE
 
       # Runs a set of commands using the runners shell
       - name: NPM install
         run: npm install
-        
-      - name: Make pakages
-        run: npm run make
-        env: 
-          GITHUB_SECRET_TOKEN: ${{ github.token }}
-        
-      - name: Release
+
+      - name: Building the application
         run: npm run publish
-        env: 
+        env:
           GITHUB_SECRET_TOKEN: ${{ github.token }}
+
+      - name: Saving artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: code-coverage-report
+          path: out/**
