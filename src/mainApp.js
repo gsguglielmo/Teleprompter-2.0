@@ -85,7 +85,8 @@ function createWindow () {
 
     // and load the index.html of the app.
     win2.loadFile('src/www/main.html')
-    win2.removeMenu();
+    //win2.removeMenu();
+    win2.maximize();
     webContents.push(win2.webContents);
 
     let displays = screen.getAllDisplays()
@@ -147,6 +148,12 @@ function createWindow () {
 
         event.sender.send('loadSegments',save.segments);
     });
+
+    ipcMain.on('getVersion', async (event, segments) => {
+
+        event.sender.send('getVersion',app.getVersion());
+    });
+
 
     ipcMain.on('timer-play', async (event, segments) => {
 

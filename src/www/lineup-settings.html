@@ -50,14 +50,6 @@
             </div>
         </div>
         <div class="app-header__menu">
-                <span>
-                    <button type="button"
-                            class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
-                        <span class="btn-icon-wrapper">
-                            <i class="fa fa-ellipsis-v fa-w-6"></i>
-                        </span>
-                    </button>
-                </span>
         </div>
         <div class="app-header__content">
             <div class="app-header-left">
@@ -65,6 +57,24 @@
                 <ul class="header-menu nav">
 
                 </ul>
+            </div>
+            <div class="app-header-right">
+                <div class="header-btn-lg pr-0">
+                    <div class="widget-content p-0">
+                        <div class="widget-content-wrapper">
+
+                            <div class="widget-content-left  ml-3 header-user-info">
+                                <div class="widget-heading" style="text-align: center;">
+                                    Version
+                                </div>
+                                <div class="widget-subheading" style="text-align: center" id="version">
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -353,6 +363,9 @@
         loadSegments(segmentsJson);
 
         calculateTotalTime();
+
+        let version = await backendCommand("getVersion", {});
+        $("#version").html(version);
     })();
 
     function onSelectChange(){

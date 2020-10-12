@@ -28,7 +28,7 @@
 <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
     <div class="app-header header-shadow bg-vicious-stance header-text-light">
         <div class="app-header__logo">
-            <div class="logo-src"  style="display: none"></div>
+            <div class="logo-src" style="display: none"></div>
             <div class="header__pane ml-auto">
                 <div>
                     <button type="button" class="hamburger close-sidebar-btn hamburger--elastic"
@@ -50,14 +50,6 @@
             </div>
         </div>
         <div class="app-header__menu">
-                <span>
-                    <button type="button"
-                            class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
-                        <span class="btn-icon-wrapper">
-                            <i class="fa fa-ellipsis-v fa-w-6"></i>
-                        </span>
-                    </button>
-                </span>
         </div>
         <div class="app-header__content">
             <div class="app-header-left">
@@ -70,6 +62,24 @@
                         </a>
                     </li>
                 </ul>
+            </div>
+            <div class="app-header-right">
+                <div class="header-btn-lg pr-0">
+                    <div class="widget-content p-0">
+                        <div class="widget-content-wrapper">
+
+                            <div class="widget-content-left  ml-3 header-user-info">
+                                <div class="widget-heading" style="text-align: center;">
+                                    Version
+                                </div>
+                                <div class="widget-subheading" style="text-align: center" id="version">
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -225,17 +235,20 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-4">
-                                        <button class="mb-2 mr-2 btn-transition btn btn-outline-danger max-width" onclick="timerReset();">
+                                        <button class="mb-2 mr-2 btn-transition btn btn-outline-danger max-width"
+                                                onclick="timerReset();">
                                             <i class="fas fa-stop"></i>
                                         </button>
                                     </div>
                                     <div class="col-4">
-                                        <button class="mb-2 mr-2 btn-transition btn btn-outline-success max-width" onclick="timerPlay();" id="playButton">
+                                        <button class="mb-2 mr-2 btn-transition btn btn-outline-success max-width"
+                                                onclick="timerPlay();" id="playButton">
                                             <i class="fas fa-play"></i>
                                         </button>
                                     </div>
                                     <div class="col-4">
-                                        <button class="mb-2 mr-2 btn-transition btn btn-outline-info max-width" onclick="timerNext();">
+                                        <button class="mb-2 mr-2 btn-transition btn btn-outline-info max-width"
+                                                onclick="timerNext();">
                                             <i class="fas fa-forward"></i>
                                         </button>
                                     </div>
@@ -318,26 +331,28 @@
 
                     <div id="song-segment-template">
                         <tr id="song-segment-##NUMBER##">
-                        <td class="text-center text-muted" id="song-order-##NUMBER##">2</td>
-                        <td>
-                            <div class="widget-content p-0">
-                                <div class="widget-content-wrapper">
-                                    <div class="widget-content-left flex2">
-                                        <div class="widget-heading" id="song-title-##NUMBER##">John Doe</div>
-                                        <div class="widget-subheading opacity-7" id="song-author-##NUMBER##">Web Developer</div>
+                            <td class="text-center text-muted" id="song-order-##NUMBER##">2</td>
+                            <td>
+                                <div class="widget-content p-0">
+                                    <div class="widget-content-wrapper">
+                                        <div class="widget-content-left flex2">
+                                            <div class="widget-heading" id="song-title-##NUMBER##">John Doe</div>
+                                            <div class="widget-subheading opacity-7" id="song-author-##NUMBER##">Web
+                                                Developer
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </td>
-                        <td class="text-center" id="song-duration-##NUMBER##">07:00</td>
-                        <td class="text-center" id="song-percentage-##NUMBER##">10,00%</td>
-                        <td class="text-center">
-                            <div class="badge badge-secondary">Song</div>
-                        </td>
-                        <td class="text-center">
-                            <div class="badge badge-success" id="song-airstatus-##NUMBER##">Off air</div>
-                        </td>
-                    </tr>
+                            </td>
+                            <td class="text-center" id="song-duration-##NUMBER##">07:00</td>
+                            <td class="text-center" id="song-percentage-##NUMBER##">10,00%</td>
+                            <td class="text-center">
+                                <div class="badge badge-secondary">Song</div>
+                            </td>
+                            <td class="text-center">
+                                <div class="badge badge-success" id="song-airstatus-##NUMBER##">Off air</div>
+                            </td>
+                        </tr>
                     </div>
                 </div>
             </div>
@@ -406,36 +421,39 @@
 
     let paused = true;
 
-    (async ()=>{
+    (async () => {
 
-        let segmentsJson = await backendCommand("loadSegments",{});
+        let segmentsJson = await backendCommand("loadSegments", {});
         loadSegments(segmentsJson);
+
+        let version = await backendCommand("getVersion", {});
+        $("#version").html(version);
 
     })();
 
-    function addTalk(){
+    function addTalk() {
         let template = TALK_TEMPLATE;
-        template  = template.replace(/##NUMBER##/g, ""+INCREMENT_INDEX);
+        template = template.replace(/##NUMBER##/g, "" + INCREMENT_INDEX);
         INCREMENT_INDEX++;
         jQuery("#segmentsContainer").append(template);
-        return (INCREMENT_INDEX-1);
+        return (INCREMENT_INDEX - 1);
     }
 
-    function addSong(){
+    function addSong() {
         let template = SONG_TEMPLATE;
-        template  = template.replace(/##NUMBER##/g, ""+INCREMENT_INDEX);
+        template = template.replace(/##NUMBER##/g, "" + INCREMENT_INDEX);
         INCREMENT_INDEX++;
         jQuery("#segmentsContainer").append(template);
 
-        return (INCREMENT_INDEX-1);
+        return (INCREMENT_INDEX - 1);
     }
 
-    function loadSegments(jsonSegments){
+    function loadSegments(jsonSegments) {
         jQuery("#segmentsContainer").html("");
         segments = jsonSegments;
-        jsonSegments.forEach((segment)=>{
+        jsonSegments.forEach((segment) => {
 
-            if(segment.type === 0){
+            if (segment.type === 0) {
                 //Talk segment
                 let id = addTalk();
 
@@ -443,7 +461,7 @@
                 jQuery(`#talk-title-${id}`).html(segment.title);
                 jQuery(`#talk-duration-${id}`).html(segment.duration);
 
-            }else if(segment.type === 1){
+            } else if (segment.type === 1) {
                 //Song segment
                 let id = addSong();
 
@@ -457,17 +475,17 @@
         });
     }
 
-    function formatNumber(number){
-        if(number<10){
-            return "0"+number;
+    function formatNumber(number) {
+        if (number < 10) {
+            return "0" + number;
         }
         return number;
     }
 
-    async function backendCommand(command,options){
+    async function backendCommand(command, options) {
         return new Promise(((resolve) => {
             let listener = (event, response) => {
-                ipcRenderer.removeListener(command,listener);
+                ipcRenderer.removeListener(command, listener);
                 resolve(response);
             };
             ipcRenderer.on(command, listener);
@@ -492,33 +510,33 @@
 
         let positive = totalLate >= 0;
 
-        if(!positive){
+        if (!positive) {
             totalLate = totalLate * -1;
         }
 
-        let minutes = parseInt((totalLate/60)+"");
-        let seconds = totalLate%60;
+        let minutes = parseInt((totalLate / 60) + "");
+        let seconds = totalLate % 60;
 
-        $("#showOffset").html(`${positive?"+":"-"} ${formatNumber(minutes)}:${formatNumber(seconds)}`);
+        $("#showOffset").html(`${positive ? "+" : "-"} ${formatNumber(minutes)}:${formatNumber(seconds)}`);
 
-        if(currentSegment !== parseInt(response.currentSegment.order) ){
+        if (currentSegment !== parseInt(response.currentSegment.order)) {
 
-            if(currentSegment!==-1){
-                if(currentType === 0){
+            if (currentSegment !== -1) {
+                if (currentType === 0) {
                     //Talk
                     jQuery(`#talk-segment-${currentSegment}`).removeClass("active-row");
-                }else if(currentType === 1){
+                } else if (currentType === 1) {
                     //Song
                     jQuery(`#song-segment-${currentSegment}`).removeClass("active-row");
                 }
             }
 
-            if(response.currentSegment.type === 0){
+            if (response.currentSegment.type === 0) {
                 //Talk
                 currentType = 0;
                 currentSegment = parseInt(response.currentSegment.order);
                 jQuery(`#talk-segment-${response.currentSegment.order}`).addClass("active-row");
-            }else if(response.currentSegment.type === 1){
+            } else if (response.currentSegment.type === 1) {
                 //Song
                 currentType = 1;
                 currentSegment = parseInt(response.currentSegment.order);
@@ -527,16 +545,16 @@
         }
     });
 
-    function timerPlay(){
+    function timerPlay() {
         let element = jQuery("#playButton");
 
-        if(paused){
+        if (paused) {
             element.html('<i class="fas fa-pause"></i>');
             element.removeClass("btn-outline-success");
             element.addClass("btn-outline-warning");
             ipcRenderer.send("timer-play", {});
             paused = false;
-        }else{
+        } else {
             element.html('<i class="fas fa-play"></i>');
             element.removeClass("btn-outline-warning");
             element.addClass("btn-outline-success");
@@ -546,31 +564,31 @@
 
     }
 
-    function timerNext(){
+    function timerNext() {
         ipcRenderer.send("timer-next", {});
     }
 
-    function timerReset(){
+    function timerReset() {
         ipcRenderer.send("timer-reset", {});
         paused = true;
         let element = jQuery("#playButton");
         element.html('<i class="fas fa-play"></i>');
         element.removeClass("btn-outline-warning");
         element.addClass("btn-outline-success");
-        if(currentType === 0){
+        if (currentType === 0) {
             //Talk
             jQuery(`#talk-segment-${currentSegment}`).removeClass("active-row");
-        }else if(currentType === 1){
+        } else if (currentType === 1) {
             //Song
             jQuery(`#song-segment-${currentSegment}`).removeClass("active-row");
         }
     }
 
-    $("#liveMessage").keyup(function(){
+    $("#liveMessage").keyup(function () {
         ipcRenderer.send("set-description", $("#liveMessage").val());
     });
 
-    function openNewWindow(){
+    function openNewWindow() {
         ipcRenderer.send("new-monitor", {});
     }
 
