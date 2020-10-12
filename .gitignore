@@ -1,5 +1,5 @@
-.idea
 node_modules
-teleprompter2-win32-x64
-songs
-saves
+out
+.idea
+src/saves
+src/songs
