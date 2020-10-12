@@ -1,8 +1,9 @@
 const { app,autoUpdater,dialog } = require('electron');
+const isDev = require('electron-is-dev');
+
 
 if (require('electron-squirrel-startup')) return app.quit();
 
-//require('update-electron-app')()
 
 const server = 'https://github.com/gsguglielmo/Teleprompter-2.0/releases/download/'
 const url = `${server}/latest`
@@ -27,10 +28,13 @@ autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
 
 app.whenReady().then(()=>{
 
+    if(!isDev){
+        setInterval(() => {
+            autoUpdater.checkForUpdates();
+            console.log("check update")
+        }, 60000);
+    }
 
-    setInterval(() => {
-        autoUpdater.checkForUpdates();
-    }, 60000);
 
 
 
