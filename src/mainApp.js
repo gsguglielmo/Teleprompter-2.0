@@ -258,7 +258,9 @@ function createWindow () {
     });
 }
 
-app.whenReady().then(createWindow);
+//app.whenReady().then(createWindow);
+exports.createWindow = createWindow;
+
 
 app.on('window-all-closed', () => {
     app.quit()
