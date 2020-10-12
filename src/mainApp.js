@@ -12,7 +12,15 @@ const fs = require('fs');
 const songsDirectory = path.join(__dirname, 'songs');
 const serialConfig = require("./serialConfig.json");
 
-let save = {};
+let save = {
+    "display_index": 0,
+    "songs": [
+
+    ],
+    "segments": [
+
+    ]
+};
 
 let secondsSinceStart = 0;
 
@@ -71,7 +79,17 @@ let webContents = [];
 
 function createWindow () {
 
-    save = require("./saves/save.json");
+    if (!fs.existsSync(`${__dirname}\\saves`)){
+        fs.mkdirSync(`${__dirname}\\saves`);
+    }
+
+
+    if(fs.existsSync(`${__dirname}\\saves\\save.json`)){
+        save = require(`${__dirname}\\saves\\save.json`);
+    }else{
+        saveSettingsToDisk().then();
+    }
+
 
     save.show_status.paused = true;
 
@@ -85,13 +103,12 @@ function createWindow () {
 
     // and load the index.html of the app.
     win2.loadFile('src/www/main.html')
-    //win2.removeMenu();
+    win2.removeMenu();
     win2.maximize();
     webContents.push(win2.webContents);
 
     let displays = screen.getAllDisplays()
 
-    console.log(displays);
 
 
 
