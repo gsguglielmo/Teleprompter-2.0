@@ -35,16 +35,10 @@ jobs:
         run: cd $GITHUB_WORKSPACE
 
       # Runs a set of commands using the runners shell
-      - name: NPM install
+      - name: Installing dependencies
         run: npm install
 
       - name: Building the application
         run: npm run publish
         env:
           GITHUB_SECRET_TOKEN: ${{ github.token }}
-
-      - name: Saving artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: code-coverage-report
-          path: out/**
