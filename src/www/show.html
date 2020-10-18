@@ -136,7 +136,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" class="mm-active">
+                                    <a href="songs.html">
                                         <i class="metismenu-icon"></i>
                                         Songs
                                     </a>
@@ -148,7 +148,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="show.html">
+                                    <a href="#"  class="mm-active">
                                         <i class="metismenu-icon"></i>
                                         Show
                                     </a>
@@ -266,13 +266,10 @@
 
         for(let i=0;i<this.files.length;i++){
             let file = this.files[i];
-            if(file.type === "audio/mpeg"){
-                files.push({
-                    name: file.name,
-                    path: file.path
-                });
-            }
-
+            files.push({
+                name: file.name,
+                path: file.path
+            });
         }
 
         let response = await backendCommand("uploadSong",files);

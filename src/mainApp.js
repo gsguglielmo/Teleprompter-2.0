@@ -9,6 +9,8 @@ const player = require('play-sound')(opts = {
 
 const path = require('path');
 const fs = require('fs');
+const tar = require('tar-fs')
+
 
 let songsDirectory;
 const serialConfig = require("./serialConfig.json");
@@ -113,13 +115,20 @@ function createWindow (config,oldWindow) {
 
     // and load the index.html of the app.
     win2.loadFile('src/www/main.html')
-    win2.removeMenu();
+    //win2.removeMenu();
     win2.maximize();
     webContents.push(win2.webContents);
     oldWindow.close();
 
     let displays = screen.getAllDisplays()
 
+    ipcMain.on('compressProject',(event, arg)=>{
+        let name = path.basename(DIR);
+        let compressedPath = path.join(__dirname,name+".tar");
+        tar.pack(DIR).pipe(fs.createWriteStream( compressedPath ));
+
+        event.sender.send('compressProject', compressedPath.toString());
+    });
 
     ipcMain.on('getSongs', (event, arg) => {
 
@@ -212,6 +221,19 @@ function createWindow (config,oldWindow) {
     });
 
     ipcMain.on('deleteSong', async (event, uuid) => {
+
+        for(let i=0;i<save.songs.length;i++) {
+            let song = save.songs[i];
+
+            if(song.uuid === uuid){
+                fs.unlinkSync(path.join(songsDirectory,song.filename));
+            }
+        }
+
+        event.sender.send('deleteSong', {});
+    });
+
+    ipcMain.on('compressProject', async (event, uuid) => {
 
         for(let i=0;i<save.songs.length;i++) {
             let song = save.songs[i];
