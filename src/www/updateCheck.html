@@ -23,6 +23,7 @@
 <script type="text/javascript" src="js/loading-bar.min.js"></script>
 <script type="text/javascript">
     window.$ = window.jQuery = require('./js/jquery.min.js');
+    const {ipcRenderer} = require('electron');
 
 
     ipcRenderer.on("updateStarted", (event, response) => {

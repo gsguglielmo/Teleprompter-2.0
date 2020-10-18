@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Teleprompter 2.0</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="main.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/projectSelector.css">
+</head>
+<body>
+
+<div class="menu-left scrollbar-container" id="projectsContainer">
+
+</div>
+<div style="display: none" id="projectTemplate">
+    <div class="card mb-3 widget-content project-element" id="project-##INDEX##" onclick="openProject('##INDEX##');">
+        <div class="widget-content-outer">
+            <div class="widget-content-wrapper">
+                <div class="widget-content-left">
+                    <div class="widget-heading">##NAME##</div>
+                    <div class="widget-subheading">##DATE##</div>
+                </div>
+                <div class="widget-content-right">
+                    <div class="widget-numbers text-success"><i class="pe-7s-monitor"> </i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="menu-right">
+    <div class="position-relative form-group menu-entry">
+        <label for="showName" class="">Title</label>
+        <input
+               id="showName"
+               class="form-control"/>
+    </div>
+    <div class="position-relative form-group menu-entry">
+        <label for="showDate" class="">Date</label>
+        <input
+                type="date"
+                id="showDate"
+                class="form-control"/>
+    </div>
+    <div class="font-icon-wrapper font-icon-lg menu-entry" id="addProject" onclick="createProject();">
+        <i class="pe-7s-plus icon-gradient bg-white"> </i>
+    </div>
+</div>
+
+<script type="text/javascript" src="assets/scripts/main.js"></script>
+<script type="text/javascript" src="font-awesome/js/all.min.js"></script>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+
+<script type="text/javascript">
+    window.$ = window.jQuery = require('./js/jquery.min.js');
+    //projectsList
+
+    const {ipcRenderer} = require('electron');
+
+    console.log("sent");
+    backendCommand("projectsList",{}).then((response)=>{
+        $("#projectsContainer").html("");
+        console.log(response);
+        for(let i=0;i<response.length;i++){
+            let project = response[i];
+
+            let template = $("#projectTemplate").html();
+
+            template  = template.replace(/##INDEX##/g, ""+i);
+            template  = template.replace(/##NAME##/g, ""+project.config.name);
+            template  = template.replace(/##DATE##/g, ""+project.config.date);
+
+            $("#projectsContainer").append(template);
+        }
+    });
+
+    function openProject(raw_index){
+        let index = parseInt(raw_index);
+        ipcRenderer.send("openProject", index);
+    }
+
+    function createProject(){
+        let name = $("#showName").val();
+        let date = new Date($("#showDate").val());
+        if(name === '' || isNaN(date.getDate())){
+            return;
+        }
+
+        console.log(date.getDate());
+        ipcRenderer.send("createProject", {
+            name: name,
+            date: `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`
+        });
+    }
+
+    $("#showName").keypress(function(event){
+        let ew = event.which;
+        if(48 <= ew && ew <= 57)
+            return true;
+        if(32 <= ew && ew <= 90)
+            return true;
+        if(97 <= ew && ew <= 122)
+            return true;
+
+        return false;
+    });
+
+    async function backendCommand(command,options){
+        return new Promise(((resolve) => {
+            let listener = (event, response) => {
+                ipcRenderer.removeListener(command,listener);
+                resolve(response);
+            };
+            ipcRenderer.on(command, listener);
+            ipcRenderer.send(command, options);
+        }));
+    }
+</script>
+</body>
+</html>

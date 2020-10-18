@@ -9,7 +9,7 @@ const player = require('play-sound')(opts = {
 const path = require('path');
 const fs = require('fs');
 
-const songsDirectory = path.join(__dirname, 'songs');
+let songsDirectory;
 const serialConfig = require("./serialConfig.json");
 
 let save = {
@@ -71,25 +71,34 @@ save.show_status = {
     late: {
         minutes: 0,
         seconds: 0
-    }
+    },
+    totalLate: 0
 }
 
 let webContents = [];
 
+let DIR;
 
-function createWindow () {
+function createWindow (config,oldWindow) {
 
-    if (!fs.existsSync(`${__dirname}\\saves`)){
-        fs.mkdirSync(`${__dirname}\\saves`);
-    }
+    DIR = config.dir;
 
+    save.name = config.config.name;
+    save.date = config.config.date;
+    save.isInitialized = config.config.isInitialized;
 
-    if(fs.existsSync(`${__dirname}\\saves\\save.json`)){
-        save = require(`${__dirname}\\saves\\save.json`);
+    if(save.isInitialized){
+        save = config.config;
     }else{
+        save.isInitialized = true;
         saveSettingsToDisk().then();
+
     }
 
+    songsDirectory = path.join(DIR, 'songs');
+    if(!fs.existsSync(songsDirectory)){
+        fs.mkdirSync(songsDirectory);
+    }
 
     save.show_status.paused = true;
 
@@ -106,12 +115,9 @@ function createWindow () {
     //win2.removeMenu();
     win2.maximize();
     webContents.push(win2.webContents);
+    oldWindow.close();
 
     let displays = screen.getAllDisplays()
-
-
-
-
 
 
     ipcMain.on('getSongs', (event, arg) => {
@@ -170,7 +176,6 @@ function createWindow () {
 
         event.sender.send('getVersion',app.getVersion());
     });
-
 
     ipcMain.on('timer-play', async (event, segments) => {
 
@@ -386,7 +391,7 @@ function nextSegment(){
 
 function saveSettingsToDisk(){
     return new Promise((resolve => {
-        fs.writeFile(`${__dirname}\\saves\\save.json`, JSON.stringify(save), (err) => {
+        fs.writeFile(path.join(DIR,"teleprompter.json"), JSON.stringify(save), (err) => {
             if (err) {
                 console.error(err.message);
                 resolve(false);
@@ -423,7 +428,8 @@ async function playCurrentSong(){
         }
     }catch (e){}
     if(save.show_status.currentSegment.type !== 1)return;
-    currentAudio = player.play(`${__dirname}\\songs\\${save.show_status.currentSegment.filename}`, function(err){
+    //${__dirname}\\songs\\${save.show_status.currentSegment.filename}
+    currentAudio = player.play(path.join(songsDirectory,save.show_status.currentSegment.filename), function(err){
         if (err && !err.killed) throw err
     });
 
