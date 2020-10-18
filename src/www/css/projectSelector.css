@@ -39,13 +39,14 @@ body{
 .project-element{
     cursor: pointer;
     margin-bottom: 10px!important;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .project-element:hover{
-    background-color: lightgray!important;
-    border-radius: 0;
+    background-color: #EDEDED!important;
 
-    box-shadow: 0px 0px 5px -1px rgba(0,0,0,0.68)!important;
+    box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.68)!important;
 }
 
 .menu-left{
