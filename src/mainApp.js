@@ -1,6 +1,7 @@
 const { app, BrowserWindow, ipcMain, screen } = require('electron');
 const { getAudioDurationInSeconds } = require('get-audio-duration');
-const SerialPort = require('serialport')
+const SerialPort = require('serialport');
+const { v4: uuidv4 } = require('uuid');
 
 const player = require('play-sound')(opts = {
     player: `${__dirname}\\mpg123\\mpg123.exe`
@@ -103,8 +104,8 @@ function createWindow (config,oldWindow) {
     save.show_status.paused = true;
 
     const win2 = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 1300,
+        height: 700,
         webPreferences: {
             nodeIntegration: true
         }
@@ -112,7 +113,7 @@ function createWindow (config,oldWindow) {
 
     // and load the index.html of the app.
     win2.loadFile('src/www/main.html')
-    //win2.removeMenu();
+    win2.removeMenu();
     win2.maximize();
     webContents.push(win2.webContents);
     oldWindow.close();
@@ -138,7 +139,8 @@ function createWindow (config,oldWindow) {
                 let duration = await getAudioDurationInSeconds(path.join(songsDirectory,files[i]));
                 details.push({
                     filename: files[i],
-                    duration: calculateDuration(duration)
+                    duration: calculateDuration(duration),
+                    uuid: getUUID(files[i])
                 });
             }
 
@@ -149,6 +151,77 @@ function createWindow (config,oldWindow) {
         });
 
 
+    });
+
+    ipcMain.on('uploadSong', async (event, files) => {
+
+        let newFiles = [];
+
+        //Assigning uuids to the uploaded files
+        for(let i=0;i<files.length;i++){
+            let exists = false;
+
+            save.songs.forEach((song)=>{
+                if(song.filename === files[i].name){
+                    exists = true;
+                }
+            });
+
+            if(!exists){
+                newFiles.push({
+                    uuid: uuidv4(),
+                    ...files[i]
+                })
+            }
+
+        }
+
+        event.sender.send('uploadSong', newFiles);
+
+        let successFiles = [];
+
+        for(let i=0;i<newFiles.length;i++){
+            let status = true;
+            let duration = undefined;
+            try{
+                fs.copyFileSync(newFiles[i].path,path.join(songsDirectory,newFiles[i].name));
+
+                duration = await getAudioDurationInSeconds(path.join(songsDirectory,newFiles[i].name));
+                duration = calculateDuration(duration);
+                console.log(duration);
+            }catch (e){
+                console.error(e.message);
+                status = false;
+            }
+            successFiles.push({
+                status: status,
+                duration: duration,
+                ...newFiles[i]
+            });
+            if(status){
+                save.songs.push({
+                    filename: newFiles[i].name,
+                    duration: duration,
+                    uuid: newFiles[i].uuid
+                });
+            }
+
+        }
+
+        event.sender.send('songUploadingStatusChange', successFiles);
+    });
+
+    ipcMain.on('deleteSong', async (event, uuid) => {
+
+        for(let i=0;i<save.songs.length;i++) {
+            let song = save.songs[i];
+
+            if(song.uuid === uuid){
+                fs.unlinkSync(path.join(songsDirectory,song.filename));
+            }
+        }
+
+        event.sender.send('deleteSong', {});
     });
 
     ipcMain.on('saveSegments', async (event, segments) => {
@@ -290,6 +363,18 @@ app.on('window-all-closed', () => {
 
 setInterval(tick, 1000);
 
+function getUUID(filename){
+
+    let uuid = uuidv4();
+
+    save.songs.forEach((song)=>{
+        if(song.filename === filename){
+            uuid = song.uuid;
+        }
+    });
+
+    return uuid;
+}
 
 function tick(){
     secondsSinceStart++;

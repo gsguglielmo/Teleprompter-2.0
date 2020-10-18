@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Teleprompter 2.0</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no"/>
+    <meta name="description" content="This is an example dashboard created using build-in elements and components.">
+    <meta name="msapplication-tap-highlight" content="no">
+    <!--
+    =========================================================
+    * ArchitectUI HTML Theme Dashboard - v1.0.0
+    =========================================================
+    * Product Page: https://dashboardpack.com
+    * Copyright 2019 DashboardPack (https://dashboardpack.com)
+    * Licensed under MIT (https://github.com/DashboardPack/architectui-html-theme-free/blob/master/LICENSE)
+    =========================================================
+    * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+    -->
+    <link href="main.css" rel="stylesheet">
+    <link href="css/songs.css" rel="stylesheet">
+</head>
+<body>
+<div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+    <div class="app-header header-shadow bg-vicious-stance header-text-light">
+        <div class="app-header__logo">
+            <div class="logo-src" style="display: none"></div>
+            <div class="header__pane ml-auto">
+                <div>
+                    <button type="button" class="hamburger close-sidebar-btn hamburger--elastic"
+                            data-class="closed-sidebar">
+                            <span class="hamburger-box">
+                                <span class="hamburger-inner"></span>
+                            </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="app-header__mobile-menu">
+            <div>
+                <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
+                        <span class="hamburger-box">
+                            <span class="hamburger-inner"></span>
+                        </span>
+                </button>
+            </div>
+        </div>
+        <div class="app-header__menu">
+        </div>
+        <div class="app-header__content">
+            <div class="app-header-left">
+
+                <ul class="header-menu nav">
+
+                </ul>
+            </div>
+            <div class="app-header-right">
+                <div class="header-btn-lg pr-0">
+                    <div class="widget-content p-0">
+                        <div class="widget-content-wrapper">
+
+                            <div class="widget-content-left  ml-3 header-user-info">
+                                <div class="widget-heading" style="text-align: center;">
+                                    Version
+                                </div>
+                                <div class="widget-subheading" style="text-align: center" id="version">
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="app-main">
+        <div class="app-sidebar sidebar-shadow bg-vicious-stance sidebar-text-light">
+            <div class="app-header__logo">
+                <div class="logo-src"></div>
+                <div class="header__pane ml-auto">
+                    <div>
+                        <button type="button" class="hamburger close-sidebar-btn hamburger--elastic"
+                                data-class="closed-sidebar">
+                                    <span class="hamburger-box">
+                                        <span class="hamburger-inner"></span>
+                                    </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="app-header__mobile-menu">
+                <div>
+                    <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
+                                <span class="hamburger-box">
+                                    <span class="hamburger-inner"></span>
+                                </span>
+                    </button>
+                </div>
+            </div>
+            <div class="app-header__menu">
+                        <span>
+                            <button type="button"
+                                    class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
+                                <span class="btn-icon-wrapper">
+                                    <i class="fa fa-ellipsis-v fa-w-6"></i>
+                                </span>
+                            </button>
+                        </span>
+            </div>
+            <div class="scrollbar-sidebar">
+                <div class="app-sidebar__inner">
+                    <ul class="vertical-nav-menu">
+                        <li class="app-sidebar__heading">Teleprompter</li>
+                        <li>
+                            <a href="main.html">
+                                <i class="metismenu-icon pe-7s-rocket"></i>
+                                Live
+                            </a>
+                        </li>
+                        <li class="mm-active">
+                            <a href="#">
+                                <i class="metismenu-icon pe-7s-tools"></i>
+                                Settings
+                                <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                            </a>
+                            <ul class="mm-show mm-collapse">
+                                <li>
+                                    <a href="lineup-settings.html">
+                                        <i class="metismenu-icon"></i>
+                                        Lineup
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="mm-active">
+                                        <i class="metismenu-icon"></i>
+                                        Songs
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="metismenu-icon"></i>
+                                        Streaming
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="metismenu-icon"></i>
+                                        Show
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="app-main__outer">
+            <div class="app-main__inner">
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="mb-3 card">
+                            <div class="card-header-tab card-header-tab-animation card-header">
+                                <div class="card-header-title">
+                                    <i class="header-icon lnr-apartment icon-gradient bg-love-kiss"> </i>
+                                    Add song
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div id="wrapper">
+                                    <input type="file" id="fileInput" multiple accept="audio/mpeg">
+                                    <div id="fileDropBox">Drop the songs here</div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="main-card mb-3 card">
+                            <div class="card-header">Songs
+                            </div>
+                            <div class="table-responsive">
+                                <table class="align-middle mb-0 table table-borderless table-striped table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center">#</th>
+                                        <th>Filename</th>
+                                        <th class="text-center">Duration</th>
+                                        <th class="text-center">Status</th>
+                                        <th class="text-center">Delete</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="songsContainer">
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript" src="assets/scripts/main.js"></script>
+<script type="text/javascript" src="font-awesome/js/all.min.js"></script>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+
+
+
+<script type="text/javascript">
+    const SONG_TEMPLATE      = '<tr id="song-##UUID##">\n' +
+        '                            <td class="text-center text-muted">##INDEX##</td>\n' +
+        '                            <td>\n' +
+        '                                <div class="widget-content p-0">\n' +
+        '                                    <div class="widget-content-wrapper">\n' +
+        '                                        <div class="widget-content-left flex2">\n' +
+        '                                            <div class="widget-heading">##FILENAME##</div>\n' +
+        '                                            <div class="widget-subheading opacity-7"></div>\n' +
+        '                                        </div>\n' +
+        '                                    </div>\n' +
+        '                                </div>\n' +
+        '                            </td>\n' +
+        '                            <td class="text-center" id="song-duration-##UUID##">##DURATION##</td>\n' +
+        '                            <td class="text-center">\n' +
+        '                                <div class="badge" id="song-status-##UUID##">Uploading</div>\n' +
+        '                            </td>\n' +
+        '                            <td class="text-center">\n' +
+        '                                <button class="mb-2 mr-2 btn btn-outline-danger" id="song-delete-##UUID##" style="width: 100%" onclick="deleteSong(\'##UUID##\')"><i class="pe-7s-trash"> </i></button>\n' +
+        '                            </td>\n' +
+        '                        </tr>';
+</script>
+
+<script type="text/javascript">
+
+    window.$ = window.jQuery = require('./js/jquery.min.js');
+
+    const {ipcRenderer} = require('electron');
+
+    let songIndex = 0;
+
+    (async ()=>{
+        let version = await backendCommand("getVersion", {});
+        $("#version").html(version);
+
+
+
+        await updateSongsList();
+    })();
+
+    $("#fileInput").on("change",async function () {
+        let files = [];
+
+        for(let i=0;i<this.files.length;i++){
+            let file = this.files[i];
+            files.push({
+                name: file.name,
+                path: file.path
+            });
+        }
+
+        let response = await backendCommand("uploadSong",files);
+
+        for(let i=0;i<response.length;i++){
+            let song = response[i];
+
+            let template = SONG_TEMPLATE;
+
+            template  = template.replace(/##INDEX##/g, ""+songIndex);
+            template  = template.replace(/##UUID##/g, ""+song.uuid);
+            template  = template.replace(/##FILENAME##/g, ""+song.name);
+            template  = template.replace(/##DURATION##/g, "");
+
+            $("#songsContainer").append(template);
+
+            songIndex++;
+
+            let statusElement = $("#song-status-"+song.uuid);
+
+            statusElement.addClass("badge-info");
+            statusElement.html("UPLOADING");
+            $("#song-delete-"+song.uuid).addClass("hide");
+        }
+
+        console.log(response);
+    });
+
+    ipcRenderer.on("songUploadingStatusChange", (event, response)=>{
+        for(let i=0;i<response.length;i++){
+            let statusElement = $("#song-status-"+response[i].uuid);
+            statusElement.removeClass("badge-info");
+            statusElement.addClass("badge-success");
+            statusElement.html("UPLOADED");
+            $("#song-delete-"+response[i].uuid).removeClass("hide");
+            $("#song-duration-"+response[i].uuid).html(formatNumber(response[i].duration.minutes)+":"+formatNumber(response[i].duration.seconds));
+        }
+    });
+
+    async function updateSongsList(){
+        let response = await backendCommand("getSongs",{});
+
+        $("#songsContainer").html("");
+
+        songIndex = 0;
+
+        for(let i=0;i<response.length;i++){
+            let template = SONG_TEMPLATE;
+
+            template  = template.replace(/##INDEX##/g, ""+songIndex);
+            template  = template.replace(/##UUID##/g, ""+response[i].uuid);
+            template  = template.replace(/##FILENAME##/g, ""+response[i].filename);
+            template  = template.replace(/##DURATION##/g, formatNumber(response[i].duration.minutes)+":"+formatNumber(response[i].duration.seconds));
+
+            $("#songsContainer").append(template);
+
+            $("#song-status-"+response[i].uuid).addClass("badge-success");
+            $("#song-status-"+response[i].uuid).html("UPLOADED");
+            songIndex++;
+        }
+    }
+
+    function addSong(){
+
+    }
+
+    async function deleteSong(uuid){
+        await backendCommand("deleteSong",uuid);
+        await updateSongsList();
+    }
+
+    function formatNumber(number){
+        if(number<10){
+            return "0"+number;
+        }
+        return number;
+    }
+
+    async function backendCommand(command,options){
+        return new Promise(((resolve) => {
+            let listener = (event, response) => {
+                resolve(response);
+            };
+            ipcRenderer.once(command, listener);
+            ipcRenderer.send(command, options);
+        }));
+    }
+
+</script>
+
+</body>
+</html>
