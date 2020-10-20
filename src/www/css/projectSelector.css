@@ -32,6 +32,15 @@ body{
     cursor: pointer
 }
 
+#importProject{
+    cursor: pointer
+}
+
+#importProject:hover i{
+    background-image: linear-gradient(to right, #434343 0%, black 100%) !important;
+}
+
+
 #addProject:hover i{
     background-image: linear-gradient(to right, #434343 0%, black 100%) !important;
 }

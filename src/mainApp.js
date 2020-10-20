@@ -9,7 +9,7 @@ const player = require('play-sound')(opts = {
 
 const path = require('path');
 const fs = require('fs');
-const tar = require('tar-fs')
+const tar = require('tar-fs');
 
 
 let songsDirectory;
@@ -88,6 +88,7 @@ function createWindow (config,oldWindow) {
 
     save.name = config.config.name;
     save.date = config.config.date;
+    save.uuid = config.config.uuid;
     save.isInitialized = config.config.isInitialized;
 
     if(save.isInitialized){
@@ -95,7 +96,11 @@ function createWindow (config,oldWindow) {
     }else{
         save.isInitialized = true;
         saveSettingsToDisk().then();
+    }
 
+    if(save.uuid === undefined){
+        save.uuid = uuidv4();
+        saveSettingsToDisk().then();
     }
 
     songsDirectory = path.join(DIR, 'songs');
@@ -115,7 +120,7 @@ function createWindow (config,oldWindow) {
 
     // and load the index.html of the app.
     win2.loadFile('src/www/main.html')
-    //win2.removeMenu();
+    win2.removeMenu();
     win2.maximize();
     webContents.push(win2.webContents);
     oldWindow.close();
@@ -124,11 +129,30 @@ function createWindow (config,oldWindow) {
 
     ipcMain.on('compressProject',(event, arg)=>{
         let name = path.basename(DIR);
-        let compressedPath = path.join(__dirname,name+".tar");
-        tar.pack(DIR).pipe(fs.createWriteStream( compressedPath ));
+        let exportDir = path.join(__dirname,"projectExport");
+        let compressedPath = path.join(__dirname,"projectExport",name+".teleprompter");
+        if(fs.existsSync(exportDir)){
+            fs.rmdirSync(exportDir,{recursive: true});
+        }
 
-        event.sender.send('compressProject', compressedPath.toString());
+        fs.mkdirSync(exportDir);
+
+        let compression = tar.pack(DIR).pipe(fs.createWriteStream( compressedPath ));
+        compression.on('finish', function () {
+            console.log("completed");
+            event.sender.send('compressProject', compressedPath.toString());
+        });
+
+
     });
+
+    ipcMain.on('ondragstart', (event, filePath) => {
+        event.sender.startDrag({
+            file: filePath,
+            icon: path.join(__dirname,"www","projecticon_small.png")
+        })
+    })
+
 
     ipcMain.on('getSongs', (event, arg) => {
 
@@ -270,6 +294,14 @@ function createWindow (config,oldWindow) {
     ipcMain.on('getVersion', async (event, segments) => {
 
         event.sender.send('getVersion',app.getVersion());
+    });
+
+    ipcMain.on('getShowDetails', async (event, segments) => {
+
+        event.sender.send('getShowDetails', {
+            name: save.name,
+            date: save.date
+        });
     });
 
     ipcMain.on('timer-play', async (event, segments) => {

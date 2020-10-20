@@ -22,7 +22,7 @@
     * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
     -->
     <link href="main.css" rel="stylesheet">
-    <link href="css/songs.css" rel="stylesheet">
+    <link href="css/show.css" rel="stylesheet">
 </head>
 <body>
 <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
@@ -148,7 +148,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#"  class="mm-active">
+                                    <a href="#" class="mm-active">
                                         <i class="metismenu-icon"></i>
                                         Show
                                     </a>
@@ -165,18 +165,23 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="mb-3 card">
-                            <div class="card-header-tab card-header-tab-animation card-header">
-                                <div class="card-header-title">
-                                    <i class="header-icon lnr-apartment icon-gradient bg-love-kiss"> </i>
-                                    Add song
+                            <div class="card-body"><h5 class="card-title">Show info</h5>
+                                <div class="form-row">
+                                    <div class="col-12 col-md-8">
+                                        <div class="position-relative form-group">
+                                            <label for="showName" class="">Name</label>
+                                            <input id="showName" type="text" class="form-control" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-4">
+                                        <div class="position-relative form-group">
+                                            <label for="showDate" class="">Date</label>
+                                            <input id="showDate" disabled
+                                                   type="text" class="form-control">
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="card-body">
-                                <div id="wrapper">
-                                    <input type="file" id="fileInput" multiple accept="audio/mpeg">
-                                    <div id="fileDropBox">Drop the songs here</div>
 
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -184,31 +189,17 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="main-card mb-3 card">
-                            <div class="card-header">Songs
-                            </div>
-                            <div class="table-responsive">
-                                <table class="align-middle mb-0 table table-borderless table-striped table-hover">
-                                    <thead>
-                                    <tr>
-                                        <th class="text-center">#</th>
-                                        <th>Filename</th>
-                                        <th class="text-center">Duration</th>
-                                        <th class="text-center">Status</th>
-                                        <th class="text-center">Delete</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody id="songsContainer">
-
-
-                                    </tbody>
-                                </table>
+                    <div class="col-12 col-lg-5">
+                        <div class="mb-3 card">
+                            <div class="card-body">
+                                <h5 class="card-title">Export project</h5>
+                                <img src="projecticon.png" class="project_icon" id="drag">
+                                <h6 class="dd_description">Drag & Drop the project into the desired location</h6>
                             </div>
                         </div>
                     </div>
-                </div>
 
+                </div>
             </div>
         </div>
 
@@ -220,135 +211,31 @@
 <script type="text/javascript" src="js/jquery.min.js"></script>
 
 
-
-<script type="text/javascript">
-    const SONG_TEMPLATE      = '<tr id="song-##UUID##">\n' +
-        '                            <td class="text-center text-muted">##INDEX##</td>\n' +
-        '                            <td>\n' +
-        '                                <div class="widget-content p-0">\n' +
-        '                                    <div class="widget-content-wrapper">\n' +
-        '                                        <div class="widget-content-left flex2">\n' +
-        '                                            <div class="widget-heading">##FILENAME##</div>\n' +
-        '                                            <div class="widget-subheading opacity-7"></div>\n' +
-        '                                        </div>\n' +
-        '                                    </div>\n' +
-        '                                </div>\n' +
-        '                            </td>\n' +
-        '                            <td class="text-center" id="song-duration-##UUID##">##DURATION##</td>\n' +
-        '                            <td class="text-center">\n' +
-        '                                <div class="badge" id="song-status-##UUID##">Uploading</div>\n' +
-        '                            </td>\n' +
-        '                            <td class="text-center">\n' +
-        '                                <button class="mb-2 mr-2 btn btn-outline-danger" id="song-delete-##UUID##" style="width: 100%" onclick="deleteSong(\'##UUID##\')"><i class="pe-7s-trash"> </i></button>\n' +
-        '                            </td>\n' +
-        '                        </tr>';
-</script>
-
 <script type="text/javascript">
 
     window.$ = window.jQuery = require('./js/jquery.min.js');
 
     const {ipcRenderer} = require('electron');
 
-    let songIndex = 0;
+    let compressedPath;
 
-    (async ()=>{
+    (async () => {
         let version = await backendCommand("getVersion", {});
         $("#version").html(version);
 
+        let showDetails = await backendCommand("getShowDetails", {});
+        $("#showName").val(showDetails.name);
+        $("#showDate").val(showDetails.date);
 
-
-        await updateSongsList();
+        compressedPath = await backendCommand("compressProject", {});
     })();
 
-    $("#fileInput").on("change",async function () {
-        let files = [];
-
-        for(let i=0;i<this.files.length;i++){
-            let file = this.files[i];
-            files.push({
-                name: file.name,
-                path: file.path
-            });
-        }
-
-        let response = await backendCommand("uploadSong",files);
-
-        for(let i=0;i<response.length;i++){
-            let song = response[i];
-
-            let template = SONG_TEMPLATE;
-
-            template  = template.replace(/##INDEX##/g, ""+songIndex);
-            template  = template.replace(/##UUID##/g, ""+song.uuid);
-            template  = template.replace(/##FILENAME##/g, ""+song.name);
-            template  = template.replace(/##DURATION##/g, "");
-
-            $("#songsContainer").append(template);
-
-            songIndex++;
-
-            let statusElement = $("#song-status-"+song.uuid);
-
-            statusElement.addClass("badge-info");
-            statusElement.html("UPLOADING");
-            $("#song-delete-"+song.uuid).addClass("hide");
-        }
-
-        console.log(response);
-    });
-
-    ipcRenderer.on("songUploadingStatusChange", (event, response)=>{
-        for(let i=0;i<response.length;i++){
-            let statusElement = $("#song-status-"+response[i].uuid);
-            statusElement.removeClass("badge-info");
-            statusElement.addClass("badge-success");
-            statusElement.html("UPLOADED");
-            $("#song-delete-"+response[i].uuid).removeClass("hide");
-            $("#song-duration-"+response[i].uuid).html(formatNumber(response[i].duration.minutes)+":"+formatNumber(response[i].duration.seconds));
-        }
-    });
-
-    async function updateSongsList(){
-        let response = await backendCommand("getSongs",{});
-
-        $("#songsContainer").html("");
-
-        songIndex = 0;
-
-        for(let i=0;i<response.length;i++){
-            let template = SONG_TEMPLATE;
-
-            template  = template.replace(/##INDEX##/g, ""+songIndex);
-            template  = template.replace(/##UUID##/g, ""+response[i].uuid);
-            template  = template.replace(/##FILENAME##/g, ""+response[i].filename);
-            template  = template.replace(/##DURATION##/g, formatNumber(response[i].duration.minutes)+":"+formatNumber(response[i].duration.seconds));
-
-            $("#songsContainer").append(template);
-
-            $("#song-status-"+response[i].uuid).addClass("badge-success");
-            $("#song-status-"+response[i].uuid).html("UPLOADED");
-            songIndex++;
-        }
+    document.getElementById('drag').ondragstart = (event) => {
+        event.preventDefault()
+        ipcRenderer.send('ondragstart', compressedPath);
     }
 
-    function addSong(){
-
-    }
-
-    async function deleteSong(uuid){
-        await backendCommand("deleteSong",uuid);
-        await updateSongsList();
-    }
-
-    function formatNumber(number){
-        if(number<10){
-            return "0"+number;
-        }
-        return number;
-    }
-
-    async function backendCommand(command,options){
+    async function backendCommand(command, options) {
         return new Promise(((resolve) => {
             let listener = (event, response) => {
                 resolve(response);

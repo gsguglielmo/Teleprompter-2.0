@@ -44,6 +44,10 @@
     <div class="font-icon-wrapper font-icon-lg menu-entry" id="addProject" onclick="createProject();">
         <i class="pe-7s-plus icon-gradient bg-white"> </i>
     </div>
+    <h4 style="margin-top: 2rem;margin-bottom: 2rem; text-align: center">OR</h4>
+    <div class="font-icon-wrapper font-icon-lg menu-entry" id="importProject" onclick="importProject();">
+        <i class="pe-7s-upload icon-gradient bg-white"> </i>
+    </div>
 </div>
 
 <script type="text/javascript" src="assets/scripts/main.js"></script>
@@ -94,6 +98,8 @@
 
     $("#showName").keypress(function(event){
         let ew = event.which;
+        if('-'.charCodeAt(0) === ew)
+            return false;
         if(48 <= ew && ew <= 57)
             return true;
         if(32 <= ew && ew <= 90)
@@ -101,8 +107,13 @@
         if(97 <= ew && ew <= 122)
             return true;
 
+
         return false;
     });
+
+    async function importProject(){
+        await backendCommand("importDialog",{});
+    }
 
     async function backendCommand(command,options){
         return new Promise(((resolve) => {
