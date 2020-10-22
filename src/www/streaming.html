@@ -142,13 +142,13 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="streaming.html">
+                                    <a href="#"  class="mm-active">
                                         <i class="metismenu-icon"></i>
                                         Streaming
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" class="mm-active">
+                                    <a href="show.html" >
                                         <i class="metismenu-icon"></i>
                                         Show
                                     </a>
@@ -217,23 +217,13 @@
 
     const {ipcRenderer} = require('electron');
 
-    let compressedPath;
 
     (async () => {
         let version = await backendCommand("getVersion", {});
         $("#version").html(version);
 
-        let showDetails = await backendCommand("getShowDetails", {});
-        $("#showName").val(showDetails.name);
-        $("#showDate").val(showDetails.date);
 
-        compressedPath = await backendCommand("compressProject", {});
     })();
-
-    document.getElementById('drag').ondragstart = (event) => {
-        event.preventDefault()
-        ipcRenderer.send('ondragstart', compressedPath);
-    }
 
     async function backendCommand(command, options) {
         return new Promise(((resolve) => {
