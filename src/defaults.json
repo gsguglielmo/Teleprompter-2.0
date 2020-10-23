@@ -1,0 +1,39 @@
+{
+  "services": [
+    {
+      "name": "YouTube",
+      "server": "rtmp://a.rtmp.youtube.com/live2"
+    }
+  ],
+  "dveStyles": [
+    {
+      "name": "Radio Verite",
+      "settings": {
+        "sizeX": 440,
+        "sizeY": 440,
+        "positionX": 5850,
+        "positionY": 3200,
+        "borderEnabled": true,
+        "shadowEnabled": false,
+        "borderBevel": 0,
+        "borderOuterWidth": 30,
+        "borderInnerWidth": 0,
+        "borderOuterSoftness": 0,
+        "borderInnerSoftness": 0,
+        "borderBevelSoftness": 0,
+        "borderBevelPosition": 0,
+        "borderOpacity": 100,
+        "borderHue": 0,
+        "borderSaturation": 0,
+        "borderLuma": 1000,
+        "lightSourceDirection": 360,
+        "lightSourceAltitude": 25,
+        "maskEnabled": false,
+        "maskTop": 0,
+        "maskBottom": 0,
+        "maskLeft": 0,
+        "maskRight": 0
+      }
+    }
+  ]
+}

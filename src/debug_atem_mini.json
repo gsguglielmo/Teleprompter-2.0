@@ -1,0 +1,1528 @@
+{
+  "info": {
+    "apiVersion": 131102,
+    "model": 14,
+    "superSources": [],
+    "mixEffects": [
+      {
+        "keyCount": 1
+      }
+    ],
+    "power": [
+      true
+    ],
+    "productIdentifier": "ATEM Mini Pro",
+    "capabilities": {
+      "mixEffects": 1,
+      "sources": 15,
+      "downstreamKeyers": 1,
+      "auxilliaries": 1,
+      "mixMinusOutputs": 0,
+      "mediaPlayers": 1,
+      "multiviewers": 1,
+      "serialPorts": 0,
+      "maxHyperdecks": 4,
+      "DVEs": 1,
+      "stingers": 0,
+      "superSources": 0,
+      "talkbackChannels": 0,
+      "cameraControl": true,
+      "advancedChromaKeyers": true,
+      "onlyConfigurableOutputs": true
+    },
+    "multiviewer": {
+      "count": 1,
+      "windowCount": 0
+    },
+    "mediaPool": {
+      "stillCount": 20,
+      "clipCount": 0
+    },
+    "fairlightMixer": {
+      "inputs": 6,
+      "monitors": 0
+    },
+    "macroPool": {
+      "macroCount": 100
+    }
+  },
+  "video": {
+    "mixEffects": [
+      {
+        "index": 0,
+        "programInput": 1,
+        "previewInput": 3010,
+        "transitionPreview": false,
+        "transitionPosition": {
+          "inTransition": false,
+          "remainingFrames": 25,
+          "handlePosition": 0
+        },
+        "transitionProperties": {
+          "style": 0,
+          "selection": 3,
+          "nextStyle": 0,
+          "nextSelection": 3
+        },
+        "transitionSettings": {
+          "mix": {
+            "rate": 25
+          },
+          "dip": {
+            "rate": 25,
+            "input": 2001
+          },
+          "wipe": {
+            "rate": 25,
+            "pattern": 6,
+            "borderWidth": 0,
+            "borderInput": 2001,
+            "symmetry": 5000,
+            "borderSoftness": 8300,
+            "xPosition": 5000,
+            "yPosition": 5000,
+            "reverseDirection": false,
+            "flipFlop": false
+          },
+          "DVE": {
+            "rate": 25,
+            "logoRate": 25,
+            "style": 28,
+            "fillSource": 3010,
+            "keySource": 3011,
+            "enableKey": true,
+            "preMultiplied": true,
+            "clip": 500,
+            "gain": 700,
+            "invertKey": false,
+            "reverse": false,
+            "flipFlop": false
+          },
+          "stinger": {
+            "source": 1,
+            "preMultipliedKey": true,
+            "clip": 500,
+            "gain": 700,
+            "invert": false,
+            "preroll": 2,
+            "clipDuration": 73,
+            "triggerPoint": 34,
+            "mixRate": 5
+          }
+        },
+        "upstreamKeyers": [
+          {
+            "canFlyKey": true,
+            "upstreamKeyerId": 0,
+            "mixEffectKeyType": 3,
+            "cutSource": 3011,
+            "fillSource": 1,
+            "onAir": false,
+            "flyEnabled": false,
+            "flyKeyframes": [
+              null,
+              {
+                "keyFrameId": 1,
+                "sizeX": 1000,
+                "sizeY": 1000,
+                "positionX": 0,
+                "positionY": 0,
+                "rotation": 0,
+                "borderOuterWidth": 0,
+                "borderInnerWidth": 0,
+                "borderOuterSoftness": 0,
+                "borderInnerSoftness": 0,
+                "borderBevelSoftness": 0,
+                "borderBevelPosition": 0,
+                "borderOpacity": 255,
+                "borderHue": 0,
+                "borderSaturation": 0,
+                "borderLuma": 0,
+                "lightSourceDirection": 360,
+                "lightSourceAltitude": 25,
+                "maskTop": 0,
+                "maskBottom": 0,
+                "maskLeft": 0,
+                "maskRight": 0
+              },
+              {
+                "keyFrameId": 2,
+                "sizeX": 1000,
+                "sizeY": 1000,
+                "positionX": 0,
+                "positionY": 0,
+                "rotation": 0,
+                "borderOuterWidth": 0,
+                "borderInnerWidth": 0,
+                "borderOuterSoftness": 0,
+                "borderInnerSoftness": 0,
+                "borderBevelSoftness": 0,
+                "borderBevelPosition": 0,
+                "borderOpacity": 255,
+                "borderHue": 0,
+                "borderSaturation": 0,
+                "borderLuma": 0,
+                "lightSourceDirection": 360,
+                "lightSourceAltitude": 25,
+                "maskTop": 0,
+                "maskBottom": 0,
+                "maskLeft": 0,
+                "maskRight": 0
+              }
+            ],
+            "maskSettings": {
+              "maskEnabled": false,
+              "maskTop": 9000,
+              "maskBottom": -9000,
+              "maskLeft": -16000,
+              "maskRight": 16000
+            },
+            "lumaSettings": {
+              "preMultiplied": true,
+              "clip": 500,
+              "gain": 700,
+              "invert": false
+            },
+            "patternSettings": {
+              "style": 6,
+              "size": 5000,
+              "symmetry": 5000,
+              "softness": 8300,
+              "positionX": 5000,
+              "positionY": 5000,
+              "invert": false
+            },
+            "dveSettings": {
+              "sizeX": 200,
+              "sizeY": 200,
+              "positionX": 12500,
+              "positionY": 7000,
+              "rotation": 0,
+              "borderEnabled": true,
+              "shadowEnabled": false,
+              "borderBevel": 0,
+              "borderOuterWidth": 0,
+              "borderInnerWidth": 20,
+              "borderOuterSoftness": 0,
+              "borderInnerSoftness": 0,
+              "borderBevelSoftness": 0,
+              "borderBevelPosition": 0,
+              "borderOpacity": 100,
+              "borderHue": 0,
+              "borderSaturation": 0,
+              "borderLuma": 0,
+              "lightSourceDirection": 360,
+              "lightSourceAltitude": 25,
+              "maskEnabled": false,
+              "maskTop": 0,
+              "maskBottom": 0,
+              "maskLeft": 0,
+              "maskRight": 0,
+              "rate": 25
+            },
+            "flyProperties": {
+              "isASet": false,
+              "isBSet": false,
+              "isAtKeyFrame": 0,
+              "runToInfiniteIndex": 4
+            }
+          }
+        ],
+        "fadeToBlack": {
+          "rate": 25,
+          "isFullyBlack": false,
+          "inTransition": false,
+          "remainingFrames": 25
+        }
+      }
+    ],
+    "downstreamKeyers": [
+      {
+        "isAuto": false,
+        "remainingFrames": 25,
+        "onAir": false,
+        "inTransition": false,
+        "sources": {
+          "fillSource": 3010,
+          "cutSource": 3011
+        },
+        "properties": {
+          "tie": false,
+          "rate": 25,
+          "preMultiply": true,
+          "clip": 500,
+          "gain": 700,
+          "invert": false,
+          "mask": {
+            "enabled": false,
+            "top": 9000,
+            "bottom": -9000,
+            "left": -16000,
+            "right": 16000
+          }
+        },
+        "isTowardsOnAir": true
+      }
+    ],
+    "auxilliaries": [
+      9001
+    ],
+    "superSources": []
+  },
+  "media": {
+    "stillPool": [
+      {
+        "isUsed": true,
+        "hash": "Syw/AAAAAAAAAAAAAAAAAA==",
+        "fileName": "02 Sultans of the swing - Dire Straits 2"
+      },
+      {
+        "isUsed": true,
+        "hash": "82cq5A9MP11TzYJwTK/8uQ==",
+        "fileName": "El paradiso - prismojeni profesorji bluesa"
+      },
+      {
+        "isUsed": true,
+        "hash": "VOM1zbsDst4lXFKqKRRmug==",
+        "fileName": "Hawaiian club - Elvis Jackson"
+      },
+      {
+        "isUsed": false,
+        "hash": "AAAAAAAAAAAAAAAAAAAAAA==",
+        "fileName": ""
+      },
+      {
+        "isUsed": false,
+        "hash": "AAAAAAAAAAAAAAAAAAAAAA==",
+        "fileName": ""
+      },
+      {
+        "isUsed": false,
+        "hash": "AAAAAAAAAAAAAAAAAAAAAA==",
+        "fileName": ""
+      },
+      {
+        "isUsed": false,
+        "hash": "AAAAAAAAAAAAAAAAAAAAAA==",
+        "fileName": ""
+      },
+      {
+        "isUsed": false,
+        "hash": "AAAAAAAAAAAAAAAAAAAAAA==",
+        "fileName": ""
+      },
+      {
+        "isUsed": false,
+        "hash": "AAAAAAAAAAAAAAAAAAAAAA==",
+        "fileName": ""
+      },
+      {
+        "isUsed": false,
+        "hash": "AAAAAAAAAAAAAAAAAAAAAA==",
+        "fileName": ""
+      },
+      {
+        "isUsed": false,
+        "hash": "AAAAAAAAAAAAAAAAAAAAAA==",
+        "fileName": ""
+      },
+      {
+        "isUsed": false,
+        "hash": "AAAAAAAAAAAAAAAAAAAAAA==",
+        "fileName": ""
+      },
+      {
+        "isUsed": false,
+        "hash": "AAAAAAAAAAAAAAAAAAAAAA==",
+        "fileName": ""
+      },
+      {
+        "isUsed": false,
+        "hash": "AAAAAAAAAAAAAAAAAAAAAA==",
+        "fileName": ""
+      },
+      {
+        "isUsed": false,
+        "hash": "AAAAAAAAAAAAAAAAAAAAAA==",
+        "fileName": ""
+      },
+      {
+        "isUsed": false,
+        "hash": "AAAAAAAAAAAAAAAAAAAAAA==",
+        "fileName": ""
+      },
+      {
+        "isUsed": false,
+        "hash": "AAAAAAAAAAAAAAAAAAAAAA==",
+        "fileName": ""
+      },
+      {
+        "isUsed": false,
+        "hash": "AAAAAAAAAAAAAAAAAAAAAA==",
+        "fileName": ""
+      },
+      {
+        "isUsed": false,
+        "hash": "AAAAAAAAAAAAAAAAAAAAAA==",
+        "fileName": ""
+      },
+      {
+        "isUsed": false,
+        "hash": "AAAAAAAAAAAAAAAAAAAAAA==",
+        "fileName": ""
+      }
+    ],
+    "clipPool": [],
+    "players": [
+      {
+        "playing": false,
+        "loop": false,
+        "atBeginning": true,
+        "clipFrame": 0,
+        "sourceType": 1,
+        "clipIndex": 0,
+        "stillIndex": 0
+      }
+    ]
+  },
+  "inputs": {
+    "0": {
+      "inputId": 0,
+      "longName": "Black",
+      "shortName": "BLK",
+      "areNamesDefault": true,
+      "externalPorts": [
+        256
+      ],
+      "externalPortType": 256,
+      "internalPortType": 1,
+      "sourceAvailability": 16,
+      "meAvailability": 1
+    },
+    "1": {
+      "inputId": 1,
+      "longName": "Levo",
+      "shortName": "CAM1",
+      "areNamesDefault": false,
+      "externalPorts": [
+        2
+      ],
+      "externalPortType": 2,
+      "internalPortType": 0,
+      "sourceAvailability": 17,
+      "meAvailability": 1
+    },
+    "2": {
+      "inputId": 2,
+      "longName": "Projekcija",
+      "shortName": "CAM2",
+      "areNamesDefault": false,
+      "externalPorts": [
+        2
+      ],
+      "externalPortType": 2,
+      "internalPortType": 0,
+      "sourceAvailability": 17,
+      "meAvailability": 1
+    },
+    "3": {
+      "inputId": 3,
+      "longName": "Gopro",
+      "shortName": "CAM3",
+      "areNamesDefault": false,
+      "externalPorts": [
+        2
+      ],
+      "externalPortType": 2,
+      "internalPortType": 0,
+      "sourceAvailability": 17,
+      "meAvailability": 1
+    },
+    "4": {
+      "inputId": 4,
+      "longName": "",
+      "shortName": "CAM4",
+      "areNamesDefault": false,
+      "externalPorts": [
+        2
+      ],
+      "externalPortType": 2,
+      "internalPortType": 0,
+      "sourceAvailability": 17,
+      "meAvailability": 1
+    },
+    "1000": {
+      "inputId": 1000,
+      "longName": "Color Bars",
+      "shortName": "BARS",
+      "areNamesDefault": true,
+      "externalPorts": [
+        256
+      ],
+      "externalPortType": 256,
+      "internalPortType": 2,
+      "sourceAvailability": 16,
+      "meAvailability": 1
+    },
+    "2001": {
+      "inputId": 2001,
+      "longName": "Color 1",
+      "shortName": "COL1",
+      "areNamesDefault": true,
+      "externalPorts": [
+        256
+      ],
+      "externalPortType": 256,
+      "internalPortType": 3,
+      "sourceAvailability": 0,
+      "meAvailability": 1
+    },
+    "2002": {
+      "inputId": 2002,
+      "longName": "Color 2",
+      "shortName": "COL2",
+      "areNamesDefault": true,
+      "externalPorts": [
+        256
+      ],
+      "externalPortType": 256,
+      "internalPortType": 3,
+      "sourceAvailability": 0,
+      "meAvailability": 1
+    },
+    "3010": {
+      "inputId": 3010,
+      "longName": "Media Player 1",
+      "shortName": "MP1",
+      "areNamesDefault": true,
+      "externalPorts": [
+        256
+      ],
+      "externalPortType": 256,
+      "internalPortType": 4,
+      "sourceAvailability": 16,
+      "meAvailability": 1
+    },
+    "3011": {
+      "inputId": 3011,
+      "longName": "Media Player 1 Key",
+      "shortName": "MP1K",
+      "areNamesDefault": true,
+      "externalPorts": [
+        256
+      ],
+      "externalPortType": 256,
+      "internalPortType": 5,
+      "sourceAvailability": 16,
+      "meAvailability": 1
+    },
+    "8001": {
+      "inputId": 8001,
+      "longName": "Output",
+      "shortName": "",
+      "areNamesDefault": true,
+      "externalPorts": [
+        256
+      ],
+      "externalPortType": 256,
+      "internalPortType": 129,
+      "sourceAvailability": 0,
+      "meAvailability": 0
+    },
+    "9001": {
+      "inputId": 9001,
+      "longName": "Multi View",
+      "shortName": "MVW",
+      "areNamesDefault": true,
+      "externalPorts": [
+        256
+      ],
+      "externalPortType": 256,
+      "internalPortType": 131,
+      "sourceAvailability": 1,
+      "meAvailability": 0
+    },
+    "10010": {
+      "inputId": 10010,
+      "longName": "Program",
+      "shortName": "PGM",
+      "areNamesDefault": true,
+      "externalPorts": [
+        256
+      ],
+      "externalPortType": 256,
+      "internalPortType": 128,
+      "sourceAvailability": 1,
+      "meAvailability": 0
+    },
+    "10011": {
+      "inputId": 10011,
+      "longName": "Preview",
+      "shortName": "PVW",
+      "areNamesDefault": true,
+      "externalPorts": [
+        256
+      ],
+      "externalPortType": 256,
+      "internalPortType": 128,
+      "sourceAvailability": 1,
+      "meAvailability": 0
+    },
+    "11001": {
+      "inputId": 11001,
+      "longName": "Levo Direct",
+      "shortName": "DIR",
+      "areNamesDefault": false,
+      "externalPorts": [
+        2
+      ],
+      "externalPortType": 2,
+      "internalPortType": 7,
+      "sourceAvailability": 1,
+      "meAvailability": 0
+    }
+  },
+  "macro": {
+    "macroPlayer": {
+      "isRunning": false,
+      "isWaiting": false,
+      "loop": false,
+      "macroIndex": 65535
+    },
+    "macroRecorder": {
+      "isRecording": false,
+      "macroIndex": 0
+    },
+    "macroProperties": [
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      },
+      {
+        "isUsed": false,
+        "hasUnsupportedOps": false,
+        "name": "",
+        "description": ""
+      }
+    ]
+  },
+  "settings": {
+    "multiViewers": [
+      {
+        "index": 0,
+        "windows": [
+          {
+            "windowIndex": 0,
+            "source": 10011,
+            "supportsVuMeter": false,
+            "supportsSafeArea": true
+          },
+          {
+            "windowIndex": 1,
+            "source": 10010,
+            "supportsVuMeter": true,
+            "supportsSafeArea": false
+          },
+          {
+            "windowIndex": 2,
+            "source": 1,
+            "supportsVuMeter": true,
+            "supportsSafeArea": false
+          },
+          {
+            "windowIndex": 3,
+            "source": 2,
+            "supportsVuMeter": true,
+            "supportsSafeArea": false
+          },
+          {
+            "windowIndex": 4,
+            "source": 3,
+            "supportsVuMeter": true,
+            "supportsSafeArea": false
+          },
+          {
+            "windowIndex": 5,
+            "source": 4,
+            "supportsVuMeter": true,
+            "supportsSafeArea": false
+          },
+          {
+            "windowIndex": 6,
+            "source": 3010,
+            "supportsVuMeter": false,
+            "supportsSafeArea": false
+          }
+        ]
+      }
+    ],
+    "videoMode": 10
+  },
+  "fairlight": {
+    "inputs": {
+      "1": {
+        "sources": {
+          "-65280": {
+            "properties": {
+              "sourceType": 1,
+              "maxFramesDelay": 0,
+              "framesDelay": 0,
+              "gain": 0,
+              "hasStereoSimulation": false,
+              "stereoSimulation": 0,
+              "equalizerBands": 6,
+              "equalizerEnabled": true,
+              "equalizerGain": 0,
+              "makeUpGain": 0,
+              "balance": 0,
+              "faderGain": 0,
+              "supportedMixOptions": [
+                1,
+                2,
+                4
+              ],
+              "mixOption": 1
+            }
+          }
+        },
+        "properties": {
+          "inputType": 0,
+          "externalPortType": 2,
+          "supportedConfigurations": [
+            2,
+            4
+          ],
+          "activeConfiguration": 2,
+          "supportedInputLevels": [],
+          "activeInputLevel": 0
+        }
+      },
+      "2": {
+        "sources": {
+          "-65280": {
+            "properties": {
+              "sourceType": 1,
+              "maxFramesDelay": 0,
+              "framesDelay": 0,
+              "gain": 0,
+              "hasStereoSimulation": false,
+              "stereoSimulation": 0,
+              "equalizerBands": 6,
+              "equalizerEnabled": true,
+              "equalizerGain": 0,
+              "makeUpGain": 0,
+              "balance": 0,
+              "faderGain": 0,
+              "supportedMixOptions": [
+                1,
+                2,
+                4
+              ],
+              "mixOption": 1
+            }
+          }
+        },
+        "properties": {
+          "inputType": 0,
+          "externalPortType": 2,
+          "supportedConfigurations": [
+            2,
+            4
+          ],
+          "activeConfiguration": 2,
+          "supportedInputLevels": [],
+          "activeInputLevel": 0
+        }
+      },
+      "3": {
+        "sources": {
+          "-65280": {
+            "properties": {
+              "sourceType": 1,
+              "maxFramesDelay": 0,
+              "framesDelay": 0,
+              "gain": 0,
+              "hasStereoSimulation": false,
+              "stereoSimulation": 0,
+              "equalizerBands": 6,
+              "equalizerEnabled": true,
+              "equalizerGain": 0,
+              "makeUpGain": 0,
+              "balance": 0,
+              "faderGain": 0,
+              "supportedMixOptions": [
+                1,
+                2,
+                4
+              ],
+              "mixOption": 1
+            }
+          }
+        },
+        "properties": {
+          "inputType": 0,
+          "externalPortType": 2,
+          "supportedConfigurations": [
+            2,
+            4
+          ],
+          "activeConfiguration": 2,
+          "supportedInputLevels": [],
+          "activeInputLevel": 0
+        }
+      },
+      "4": {
+        "sources": {
+          "-65280": {
+            "properties": {
+              "sourceType": 1,
+              "maxFramesDelay": 0,
+              "framesDelay": 0,
+              "gain": 0,
+              "hasStereoSimulation": false,
+              "stereoSimulation": 0,
+              "equalizerBands": 6,
+              "equalizerEnabled": true,
+              "equalizerGain": 0,
+              "makeUpGain": 0,
+              "balance": 0,
+              "faderGain": 0,
+              "supportedMixOptions": [
+                1,
+                2,
+                4
+              ],
+              "mixOption": 1
+            }
+          }
+        },
+        "properties": {
+          "inputType": 0,
+          "externalPortType": 2,
+          "supportedConfigurations": [
+            2,
+            4
+          ],
+          "activeConfiguration": 2,
+          "supportedInputLevels": [],
+          "activeInputLevel": 0
+        }
+      },
+      "1301": {
+        "sources": {
+          "-65280": {
+            "properties": {
+              "sourceType": 1,
+              "maxFramesDelay": 8,
+              "framesDelay": 0,
+              "gain": 0,
+              "hasStereoSimulation": false,
+              "stereoSimulation": 0,
+              "equalizerBands": 6,
+              "equalizerEnabled": true,
+              "equalizerGain": 0,
+              "makeUpGain": 0,
+              "balance": 0,
+              "faderGain": 0,
+              "supportedMixOptions": [
+                1,
+                2
+              ],
+              "mixOption": 1
+            }
+          }
+        },
+        "properties": {
+          "inputType": 2,
+          "externalPortType": 512,
+          "supportedConfigurations": [
+            2,
+            4
+          ],
+          "activeConfiguration": 2,
+          "supportedInputLevels": [
+            1,
+            2
+          ],
+          "activeInputLevel": 1
+        }
+      },
+      "1302": {
+        "sources": {
+          "-65280": {
+            "properties": {
+              "sourceType": 1,
+              "maxFramesDelay": 8,
+              "framesDelay": 0,
+              "gain": 0,
+              "hasStereoSimulation": false,
+              "stereoSimulation": 0,
+              "equalizerBands": 6,
+              "equalizerEnabled": true,
+              "equalizerGain": 0,
+              "makeUpGain": 0,
+              "balance": 0,
+              "faderGain": 0,
+              "supportedMixOptions": [
+                1,
+                2
+              ],
+              "mixOption": 1
+            }
+          }
+        },
+        "properties": {
+          "inputType": 2,
+          "externalPortType": 512,
+          "supportedConfigurations": [
+            2,
+            4
+          ],
+          "activeConfiguration": 2,
+          "supportedInputLevels": [
+            1,
+            2
+          ],
+          "activeInputLevel": 1
+        }
+      }
+    }
+  },
+  "recording": {
+    "properties": {
+      "filename": "Untitled",
+      "workingSet1DiskId": 4294967295,
+      "workingSet2DiskId": 4294967295,
+      "recordInAllCameras": true
+    },
+    "disks": {},
+    "status": {
+      "state": 0,
+      "error": 0,
+      "recordingTimeAvailable": 4294967295
+    },
+    "duration": {
+      "hours": 0,
+      "minutes": 0,
+      "seconds": 0,
+      "frames": 0,
+      "isDropFrame": false
+    }
+  },
+  "streaming": {
+    "service": {
+      "serviceName": "YouTube",
+      "url": "rtmp://a.rtmp.youtube.com/live2",
+      "key": "3qqa-qu8p-1zy5-fku1",
+      "bitrates": [
+        6000000,
+        9000000
+      ]
+    },
+    "status": {
+      "state": 1,
+      "error": 0
+    },
+    "duration": {
+      "hours": 0,
+      "minutes": 0,
+      "seconds": 0,
+      "frames": 0,
+      "isDropFrame": false
+    },
+    "stats": {
+      "encodingBitrate": 0,
+      "cacheUsed": 0
+    }
+  }
+}

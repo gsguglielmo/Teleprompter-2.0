@@ -165,19 +165,12 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="mb-3 card">
-                            <div class="card-body"><h5 class="card-title">Show info</h5>
+                            <div class="card-body"><h5 class="card-title">Atem mini</h5>
                                 <div class="form-row">
-                                    <div class="col-12 col-md-8">
+                                    <div class="col-12">
                                         <div class="position-relative form-group">
-                                            <label for="showName" class="">Name</label>
-                                            <input id="showName" type="text" class="form-control" disabled>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-md-4">
-                                        <div class="position-relative form-group">
-                                            <label for="showDate" class="">Date</label>
-                                            <input id="showDate" disabled
-                                                   type="text" class="form-control">
+                                            <label for="atemIP" class="">IP address</label>
+                                            <input id="atemIP" type="text" class="form-control">
                                         </div>
                                     </div>
                                 </div>
@@ -189,12 +182,200 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-12 col-lg-5">
+                    <div class="col-12 col-md-4">
                         <div class="mb-3 card">
-                            <div class="card-body">
-                                <h5 class="card-title">Export project</h5>
-                                <img src="projecticon.png" class="project_icon" id="drag">
-                                <h6 class="dd_description">Drag & Drop the project into the desired location</h6>
+                            <div class="card-body"><h5 class="card-title">Streaming</h5>
+                                <div class="form-row">
+                                    <div class="col-12">
+                                        <div class="position-relative form-group">
+                                            <label for="streamingService" class="">Service</label>
+                                            <select name="select" id="streamingService" class="form-control">
+                                                <option>YouTube</option>
+                                                <option>Facebook</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-12">
+                                        <div class="position-relative form-group">
+                                            <label for="streamingUrl" class="">Server url</label>
+                                            <input id="streamingUrl" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-12">
+                                        <div class="position-relative form-group">
+                                            <label for="streamingKey" class="">Secret key</label>
+                                            <input id="streamingKey" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-12">
+                                        <div class="position-relative form-group">
+                                            <label for="stillOffset" class="">Working still</label>
+                                            <input id="stillOffset" type="number" class="form-control" value="0">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-12">
+                                        <button class="btn btn-outline-primary" style="width: 100%" onclick="saveStreamingSettings();">Save & upload</button>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <div class="mb-3 card">
+                            <div class="card-body"><h5 class="card-title">DVE</h5>
+                                <div class="form-row">
+                                    <div class="col-12">
+                                        <div class="position-relative form-group">
+                                            <label for="savedPreset" class="">Preset</label>
+                                            <select name="select" id="savedPreset" class="form-control" disabled>
+                                                <option>Radio verite</option>
+                                                <option>Facebook</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row" style="display: none">
+                                    <div class="col-12">
+                                        <div class="position-relative form-group">
+                                            <label for="fillSource" class="">Fill source</label>
+                                            <select name="select" id="fillSource" class="form-control">
+                                                <option value="1">Camera 1</option>
+                                                <option value="2">Camera 2</option>
+                                                <option value="3">Camera 3</option>
+                                                <option value="4">Camera 4</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="col-6">
+                                        <div class="position-relative form-group">
+                                            <label for="positionX" class="">Position X</label>
+                                            <input id="positionX" type="number" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="position-relative form-group">
+                                            <label for="positionY">Position Y</label>
+                                            <input id="positionY" type="number" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="col-6">
+                                        <div class="position-relative form-group">
+                                            <label for="width" class="">Width</label>
+                                            <input id="width" type="number" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="position-relative form-group">
+                                            <label for="height">Height</label>
+                                            <input id="height" type="number" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <h5 class="card-title">Border</h5>
+
+                                <div class="form-row" >
+                                    <div class="col-6">
+                                        <div class="position-relative form-group">
+                                            <label for="borderColor" class="">Color</label>
+                                            <input id="borderColor" type="color" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="position-relative form-group">
+                                            <label for="borderOpacity" class="">Opacity</label>
+
+                                            <div class="input-group">
+                                                <input id="borderOpacity" type="number" min="0" max="100" class="form-control">
+                                                <div class="input-group-append"><span class="input-group-text">%</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-row" >
+                                    <div class="col-6">
+                                        <div class="position-relative form-group">
+                                            <label for="outerWidth" class="">Outer width</label>
+                                            <input id="outerWidth" type="number" min="0" max="16" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="position-relative form-group">
+                                            <label for="innerWidth" class="">Inner width</label>
+                                            <input id="innerWidth" type="number" min="0" max="16" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-row" >
+                                    <div class="col-6">
+                                        <div class="position-relative form-group">
+                                            <label for="outerSoften" class="">Outer soften</label>
+
+                                            <div class="input-group">
+                                                <input id="outerSoften" type="number" min="0" max="100" class="form-control">
+                                                <div class="input-group-append"><span class="input-group-text">%</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="position-relative form-group">
+                                            <label for="innerSoften" class="">Inner soften</label>
+
+                                            <div class="input-group">
+                                                <input id="innerSoften" type="number" min="0" max="100" class="form-control">
+                                                <div class="input-group-append"><span class="input-group-text">%</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <button class="btn btn-outline-primary" style="width: 100%" onclick="saveDVE();">Save & upload</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <div class="mb-3 card">
+                            <div class="card-body"><h5 class="card-title">Actions</h5>
+                                <div class="form-row">
+                                    <div class="col-12">
+                                        <div class="position-relative form-group">
+                                            <label for="testConnection" class="">Connect to the atem mini</label>
+                                            <div class="input-group"  >
+
+                                                <div class="input-group-prepend">
+                                                    <button class="btn btn-success" id="testConnection" onclick="testAtemMini();">Connect</button>
+                                                </div>
+                                                <input type="text"  class="form-control" id="connectionTestStatus" value="NOT CONNECTED" disabled></div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
                             </div>
                         </div>
                     </div>
@@ -217,13 +398,227 @@
 
     const {ipcRenderer} = require('electron');
 
+    let services = [];
+    let atem;
+    let DVE;
 
     (async () => {
         let version = await backendCommand("getVersion", {});
         $("#version").html(version);
 
+        atem = await backendCommand("getAtemMiniAddress",{});
+        if(atem.ip !== undefined){
+            $("#atemIP").val(atem.ip);
+        }
 
+        console.log(atem);
+
+        if(atem.isConnected){
+            let connectButton = $("#testConnection");
+            connectButton.removeClass("btn-success");
+            connectButton.addClass("btn-danger");
+            connectButton.html("Disconnect");
+            $("#connectionTestStatus").val("CONNECTED");
+        }
+
+        await loadDefaultServices();
+        await loadStreamingSettings();
+
+        await loadDVE();
     })();
+
+    function HSLtoHEX(h,s,l){
+        let r, g, b;
+
+        if(s === 0){
+            r = g = b = l; // achromatic
+        }else{
+            let hue2rgb = function hue2rgb(p, q, t){
+                if(t < 0) t += 1;
+                if(t > 1) t -= 1;
+                if(t < 1/6) return p + (q - p) * 6 * t;
+                if(t < 1/2) return q;
+                if(t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+                return p;
+            }
+
+            let q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+            let p = 2 * l - q;
+            r = hue2rgb(p, q, h + 1/3);
+            g = hue2rgb(p, q, h);
+            b = hue2rgb(p, q, h - 1/3);
+        }
+
+        return rgbToHex( Math.round(r * 255), Math.round(g * 255), Math.round(b * 255) );
+    }
+
+    function rgbToHex(r, g, b) {
+        return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+    }
+
+    function hexToRgb(hex) {
+        let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result ? {
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16)
+        } : null;
+    }
+
+    function HEXtoHSL(hex){
+        let conv = hexToRgb(hex);
+        let r = conv.r;
+        let g = conv.g;
+        let b = conv.b;
+
+        r /= 255;g /= 255; b /= 255;
+        let max = Math.max(r, g, b), min = Math.min(r, g, b);
+        let h, s, l = (max + min) / 2;
+
+        if(max === min){
+            h = s = 0; // achromatic
+        }else{
+            let d = max - min;
+            s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+            switch(max){
+                case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+                case g: h = (b - r) / d + 2; break;
+                case b: h = (r - g) / d + 4; break;
+            }
+            h /= 6;
+        }
+
+        return [h, s, l];
+    }
+
+    async function saveDVE(){
+        let settings = DVE.settings;
+
+        settings["positionX"] = Math.round( $("#positionX").val()*1000 );
+        settings["positionY"] = Math.round( $("#positionY").val()*1000 );
+
+        settings["sizeX"] = Math.round( $("#width").val()*1000 );
+        settings["sizeY"] = Math.round( $("#height").val()*1000 );
+
+        settings["borderOpacity"] = Math.round( $("#borderOpacity").val() );
+
+        let hsl = HEXtoHSL($("#borderColor").val());
+
+        settings["borderHue"] = hsl[0]*1000;
+        settings["borderSaturation"] = hsl[1]*1000;
+        settings["borderLuma"] = hsl[2]*1000;
+
+        settings["borderOuterWidth"] = Math.round( $("#outerWidth").val()*100 );
+        settings["borderInnerWidth"] = Math.round( $("#innerWidth").val()*100 );
+
+        settings["borderOuterSoftness"] = Math.round( $("#outerSoften").val() );
+        settings["borderInnerSoftness"] = Math.round( $("#innerSoften").val() );
+
+        DVE.settings = settings;
+
+        await backendCommand("setDVEStyle",DVE);
+    }
+
+    async function loadDVE(){
+        DVE = await backendCommand("getDVEStyle",{});
+        setDVEToGUI(DVE.settings);
+    }
+
+    function setDVEToGUI(settings){
+        $("#positionX").val(settings["positionX"]/1000);
+        $("#positionY").val(settings["positionY"]/1000);
+
+        $("#width").val(settings["sizeX"]/1000);
+        $("#height").val(settings["sizeY"]/1000);
+
+        $("#borderOpacity").val(settings["borderOpacity"]);
+
+        $("#borderColor").val(HSLtoHEX(settings["borderHue"]/1000,settings["borderSaturation"]/1000,settings["borderLuma"]/1000));
+
+        $("#outerWidth").val(settings["borderOuterWidth"]/100);
+        $("#innerWidth").val(settings["borderInnerWidth"]/100);
+
+        $("#outerSoften").val(settings["borderOuterSoftness"]);
+        $("#innerSoften").val(settings["borderInnerSoftness"]);
+    }
+
+    async function testAtemMini(){
+        let connectButton = $("#testConnection");
+        if(atem.isConnected){
+            await backendCommand("atem-disconnect",{});
+
+            atem.isConnected = false;
+            connectButton.addClass("btn-success");
+            connectButton.removeClass("btn-danger");
+            connectButton.html("Connect");
+            $("#connectionTestStatus").val("NOT CONNECTED");
+
+        }else{
+            let status = await backendCommand("atem-mini-test-connection",$("#atemIP").val());
+
+
+            if(status){
+                atem.isConnected = true;
+                atem.ip = $("#atemIP").val();
+                connectButton.removeClass("btn-success");
+                connectButton.addClass("btn-danger");
+                connectButton.html("Disconnect");
+                $("#connectionTestStatus").val("CONNECTED");
+            }
+        }
+
+    }
+
+    async function loadDefaultServices(){
+        services = await backendCommand("getServices",{});
+
+        let select = $("#streamingService")
+
+        select.html("<option value=''>Custom</option>");
+
+        for(let i=0;i<services.length;i++){
+            let service = services[i];
+
+            select.append(`<option value="${service.server}">${service.name}</option>`)
+        }
+    }
+
+    $("#streamingService").change(()=>{
+        let url  = $("#streamingService").val();
+        $("#streamingUrl").val(url);
+    });
+
+    async function saveStreamingSettings(){
+        let StreamingSettings = {
+            url: $("#streamingUrl").val(),
+            key: $("#streamingKey").val(),
+            workingStill: $("#stillOffset").val()
+        }
+        await backendCommand("saveStreamingSettings",StreamingSettings);
+    }
+
+    async function loadStreamingSettings(){
+        let settings = await backendCommand("getStreamingSettings",{});
+
+        $("#streamingService").val("");
+
+        if(settings.url !== undefined){
+            $("#streamingUrl").val(settings.url);
+            for(let i=0;i<services.length;i++){
+                if(services[i].server === settings.url){
+                    $("#streamingService").val(settings.url);
+                }
+            }
+        }
+
+        if(settings.key !== undefined){
+            $("#streamingKey").val(settings.key);
+        }
+
+        if(settings.workingStill !== undefined){
+            $("#stillOffset").val(settings.workingStill);
+        }
+    }
 
     async function backendCommand(command, options) {
         return new Promise(((resolve) => {

@@ -1,7 +1,9 @@
-const { app, BrowserWindow, ipcMain, screen } = require('electron');
+const { app, BrowserWindow, ipcMain, screen, dialog } = require('electron');
 const { getAudioDurationInSeconds } = require('get-audio-duration');
 const SerialPort = require('serialport');
 const { v4: uuidv4 } = require('uuid');
+
+const {AtemController} = require("./AtemController.js");
 
 const player = require('play-sound')(opts = {
     player: `${__dirname}\\mpg123\\mpg123.exe`
@@ -10,13 +12,14 @@ const player = require('play-sound')(opts = {
 const path = require('path');
 const fs = require('fs');
 const tar = require('tar-fs');
-
+const {GlobalConfig} = require("./globalConfig.js")
 
 let songsDirectory;
 const serialConfig = require("./serialConfig.json");
 
 let save = {
     "display_index": 0,
+    "stills": {},
     "songs": [
 
     ],
@@ -80,7 +83,11 @@ save.show_status = {
 
 let webContents = [];
 
+let atemController = new AtemController();
+
 let DIR;
+
+let globalConfig;
 
 function createWindow (config,oldWindow) {
 
@@ -103,6 +110,23 @@ function createWindow (config,oldWindow) {
         saveSettingsToDisk().then();
     }
 
+    if(save.stills === undefined){
+        save.stills = {};
+        saveSettingsToDisk().then();
+    }
+
+    //Convert project file to new version (compatibility layer)
+    for(let i=0;i<save.segments.length;i++){
+        let segment = save.segments[i];
+
+        if(segment.uuid === undefined && parseInt(segment.type) === 1){
+            save.segments[i].uuid = getUUID(segment.filename);
+        }
+    }
+    saveSettingsToDisk().then();
+
+    globalConfig = new GlobalConfig();
+
     songsDirectory = path.join(DIR, 'songs');
     if(!fs.existsSync(songsDirectory)){
         fs.mkdirSync(songsDirectory);
@@ -120,7 +144,7 @@ function createWindow (config,oldWindow) {
 
     // and load the index.html of the app.
     win2.loadFile('src/www/main.html')
-    //win2.removeMenu();
+    win2.removeMenu();
     win2.maximize();
     webContents.push(win2.webContents);
     oldWindow.close();
@@ -152,7 +176,6 @@ function createWindow (config,oldWindow) {
             icon: path.join(__dirname,"www","projecticon_small.png")
         })
     })
-
 
     ipcMain.on('getSongs', (event, arg) => {
 
@@ -255,6 +278,71 @@ function createWindow (config,oldWindow) {
         }
 
         event.sender.send('deleteSong', {});
+    });
+
+    ipcMain.on('getStills', async (event, uuid) => {
+        event.sender.send('getStills', save.stills);
+    });
+
+    ipcMain.on('uploadStill', async (event, uuid) => {
+
+        let result = await dialog.showOpenDialogSync(win2, {
+            properties: ['openFile'],
+            filters: [
+                { name: 'Images', extensions: ['jpg', 'png'] },
+            ]
+        });
+        if(result === undefined){
+            event.sender.send('uploadStill', {
+                status: false
+            });
+            return;
+        }
+
+        let stillPath = result[0];
+
+        try{
+            let still_dir = path.join(DIR,"stills");
+
+            //Create directory stills if not exists
+            if(!fs.existsSync(still_dir)){
+                fs.mkdirSync(still_dir);
+            }
+
+            let filename = path.basename(stillPath);
+
+            //File copied, now adding it to the list of stills
+            fs.copyFileSync(stillPath,path.join(still_dir,filename));
+
+
+
+            save.stills[uuid] = {
+                filename: filename,
+                song_uuid: uuid
+            };
+            await saveSettingsToDisk();
+            event.sender.send('uploadStill', {
+                status: true,
+                data: save.stills[uuid]
+            });
+
+        }catch (e){
+            console.error(e.message);
+            event.sender.send('uploadStill', {
+                status: false
+            });
+        }
+
+        event.sender.send('uploadStill', {});
+    });
+
+    ipcMain.on('deleteStill', async (event, uuid) => {
+
+
+        save.stills[uuid] = undefined;
+        await saveSettingsToDisk();
+
+        event.sender.send('deleteStill', true);
     });
 
     ipcMain.on('compressProject', async (event, uuid) => {
@@ -405,11 +493,114 @@ function createWindow (config,oldWindow) {
         webContents.push(win.webContents);
         win.setFullScreen(true);
     });
+
+    ipcMain.on('prepare-next-segment', async (event, stillUUID) => {
+        if(save.stills[stillUUID] === undefined) return;
+
+
+        let still_filename = save.stills[stillUUID].filename;
+        let still_path = path.join(DIR,"stills",still_filename);
+        console.log(still_path);
+        if(!fs.existsSync(still_path))return;
+
+        let upload_slot = 0;
+        if(save.workingStill !== undefined && !isNaN(parseInt(save.workingStill))){
+            upload_slot = save.workingStill;
+        }
+
+        try{
+            console.log(atemController.connected);
+            await atemController.uploadStill(still_path,upload_slot);
+            await atemController.switchStill(upload_slot);
+            await atemController.stillToPreview();
+            await atemController.key1();
+
+        }catch (e){
+            console.error(e);
+            event.sender.send('prepare-next-segment',false);
+        }
+
+
+    });
+
+    ipcMain.on('atem-mini-test-connection', async (event, ipAddress) => {
+
+        let success = await atemController.connect(ipAddress);
+
+        event.sender.send('atem-mini-test-connection',true);
+        save.atemIp = ipAddress;
+        saveSettingsToDisk().then();
+    });
+
+    ipcMain.on('atem-disconnect', async (event, none) => {
+        await atemController.disconnect();
+        event.sender.send('atem-disconnect', true);
+    });
+
+    ipcMain.on('getServices', async (event, none) => {
+        event.sender.send('getServices',globalConfig.getServices());
+    });
+
+    ipcMain.on('saveStreamingSettings', async (event, StreamingSettings) => {
+
+        save.streamingURL = StreamingSettings.url;
+        save.streamingKey = StreamingSettings.key;
+        save.workingStill = StreamingSettings.workingStill;
+        saveSettingsToDisk().then();
+        await atemController.setStreamingService(save.streamingURL,save.streamingKey);
+
+        event.sender.send('saveStreamingSettings',true);
+    });
+
+    ipcMain.on('getStreamingSettings', async (event, none) => {
+        event.sender.send('getStreamingSettings', {
+            url: save.streamingURL,
+            key: save.streamingKey,
+            workingStill: save.workingStill
+        });
+    });
+
+    ipcMain.on('getAtemMiniAddress', async (event, none) => {
+        event.sender.send('getAtemMiniAddress', {
+            ip: save.atemIp,
+            isConnected: atemController.connected
+        });
+    });
+
+    ipcMain.on('getDVEPresets',async (event,none)=>{
+        event.sender.send('getDVEPresets', globalConfig.getDVEStyles());
+    });
+
+    ipcMain.on('getDVEStyle',async (event,none)=>{
+        if(save.DVE === undefined){
+            save.DVE = globalConfig.getDVEStyles()[0];
+            saveSettingsToDisk().then();
+        }
+        event.sender.send('getDVEStyle', save.DVE);
+    });
+
+    ipcMain.on('setDVEStyle',async (event,DVE)=>{
+
+        save.DVE = DVE;
+        saveSettingsToDisk().then();
+
+        await atemController.setDVE(DVE);
+
+        event.sender.send('setDVEStyle', true);
+    });
 }
 
 //app.whenReady().then(createWindow);
 exports.createWindow = createWindow;
 
+function atem_mini_connect(ip){
+    return new Promise(((resolve, reject) => {
+        ATEM_MINI.object.on('connected',()=>{
+            resolve(true);
+        });
+        ATEM_MINI.object.connect(ip).then();
+    }));
+}
 
 app.on('window-all-closed', () => {
     app.quit()
@@ -470,8 +661,9 @@ function tick(){
 
     for(let i=save.show_status.currentSegmentIndex;i<save.segments.length;i++){
         let segment = save.segments[i];
-        if(segment.type === 1){
+        if(parseInt(segment.type) === 1){
             songToDisplay = `${segment.title} - ${segment.author}`;
+
             break;
         }
     }

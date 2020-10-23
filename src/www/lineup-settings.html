@@ -361,7 +361,7 @@
         fileSelector.innerHTML = "";
 
         response.forEach((file)=>{
-            fileSelector.innerHTML = fileSelector.innerHTML + `<option>${file.filename}</option>`;
+            fileSelector.innerHTML = fileSelector.innerHTML + `<option value="${file.uuid}">${file.filename}</option>`;
             songs[file.filename] = file.duration;
         });
 
@@ -378,7 +378,7 @@
 
         let id = parseInt($(this).attr('id').replaceAll(/file-/gi,"").replaceAll(/-song/gi,""));
 
-        let duration = songs[$(this).val()];
+        let duration = songs[$(`#${$(this).attr('id')} option:selected`).text()];
 
         jQuery(`#duration-${id}-song`).val(`${formatNumber(duration.minutes)}:${formatNumber(duration.seconds)}`);
         calculateTotalTime();
@@ -486,7 +486,7 @@
         let selector = jQuery("#file-"+(INCREMENT_INDEX-1)+"-song");
         selector.change(onSelectChange);
 
-        let duration = songs[selector.val()];
+        let duration = songs[jQuery(`#file-${INCREMENT_INDEX-1}-song option:selected`).text()];
 
         jQuery(`#duration-${INCREMENT_INDEX-1}-song`).val(`${formatNumber(duration.minutes)}:${formatNumber(duration.seconds)}`);
 
@@ -519,7 +519,7 @@
 
                 let duration = songs[segment.filename];
                 if(duration !== undefined){
-                    jQuery(`#file-${id}-song`).val(segment.filename);
+                    jQuery(`#file-${id}-song`).val(segment.uuid);
                     jQuery(`#duration-${id}-song`).val(`${formatNumber(duration.minutes)}:${formatNumber(duration.seconds)}`);
                 }else{
                     jQuery(`#file-${id}-song`).val("");
@@ -570,7 +570,8 @@
                 element.duration = jQuery(`#duration-${segment.id}-song`).val();
                 element.title = jQuery(`#title-${segment.id}-song`).val();
                 element.author = jQuery(`#author-${segment.id}-song`).val();
-                element.filename = jQuery(`#file-${segment.id}-song`).val();
+                element.filename = jQuery(`#file-${segment.id}-song option:selected`).text();
+                element.uuid = jQuery(`#file-${segment.id}-song`).val();
                 element.still = jQuery(`#still-${segment.id}-song`).val();
             }
 

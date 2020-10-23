@@ -259,6 +259,14 @@
                                         </button>
                                     </div>
                                 </div>
+                                <div class="row" style="margin-top: 5px">
+                                    <div class="col-6">
+                                        <button class="mb-2 mr-2 btn-transition btn btn-outline-primary max-width"
+                                                onclick="prepareNextSegment();">
+                                            Prepare next segment
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -376,6 +384,8 @@
     const {ipcRenderer} = require('electron');
 
     let INCREMENT_INDEX = 0;
+
+    let nextSegment = undefined;
 
     const TALK_TEMPLATE = '<tr id="talk-segment-##NUMBER##">\n' +
         '                            <td class="text-center text-muted" id="talk-order-##NUMBER##"></td>\n' +
@@ -501,6 +511,7 @@
 
     ipcRenderer.on("tick", (event, response) => {
         console.log(response);
+        nextSegment = response.nextSegment;
 
         let duration = response.totalTime;
 
@@ -598,6 +609,13 @@
         ipcRenderer.send("new-monitor", {});
     }
 
+    async function prepareNextSegment(){
+        if(nextSegment === undefined)return;
+        if(nextSegment.uuid === undefined) return;
+
+        let result = await backendCommand("prepare-next-segment",nextSegment.uuid);
+        console.log(result);
+    }
 </script>
 
 </body>

@@ -142,7 +142,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="streaming.html">
                                         <i class="metismenu-icon"></i>
                                         Streaming
                                     </a>
@@ -196,6 +196,7 @@
                                         <th>Filename</th>
                                         <th class="text-center">Duration</th>
                                         <th class="text-center">Status</th>
+                                        <th class="text-center">Still</th>
                                         <th class="text-center">Delete</th>
                                     </tr>
                                     </thead>
@@ -239,6 +240,9 @@
         '                                <div class="badge" id="song-status-##UUID##">Uploading</div>\n' +
         '                            </td>\n' +
         '                            <td class="text-center">\n' +
+        '                                <button class="mb-2 mr-2 btn btn-outline-info" style="width: 100%" id="still-upload-##UUID##" onclick="stillToggle(\'##UUID##\')">Add still</button>\n' +
+        '                            </td>\n' +
+        '                            <td class="text-center">\n' +
         '                                <button class="mb-2 mr-2 btn btn-outline-danger" id="song-delete-##UUID##" style="width: 100%" onclick="deleteSong(\'##UUID##\')"><i class="pe-7s-trash"> </i></button>\n' +
         '                            </td>\n' +
         '                        </tr>';
@@ -251,6 +255,8 @@
     const {ipcRenderer} = require('electron');
 
     let songIndex = 0;
+
+    let STILLS = {};
 
     (async ()=>{
         let version = await backendCommand("getVersion", {});
@@ -312,8 +318,42 @@
         }
     });
 
+    async function stillToggle(uuid){
+        let button = $("#still-upload-"+uuid);
+        button.attr("disabled", true);
+        if(STILLS[uuid] === undefined){
+            //Upload new still
+
+            let result = await backendCommand("uploadStill",uuid);
+
+            if(result.status){
+                button.removeClass("btn-outline-info");
+                button.addClass("btn-outline-danger");
+                button.html("Delete still");
+                STILLS[uuid]  = result.data;
+            }
+
+        }else{
+            //Delete the current still
+
+            let result = await backendCommand("deleteStill",uuid);
+
+            if(result){
+                STILLS[uuid] = undefined;
+                button.addClass("btn-outline-info");
+                button.removeClass("btn-outline-danger");
+                button.html("Add still");
+            }
+
+
+        }
+
+        button.removeAttr("disabled");
+    }
+
     async function updateSongsList(){
         let response = await backendCommand("getSongs",{});
+        STILLS = await backendCommand("getStills",{});
 
         $("#songsContainer").html("");
 
@@ -328,6 +368,15 @@
             template  = template.replace(/##DURATION##/g, formatNumber(response[i].duration.minutes)+":"+formatNumber(response[i].duration.seconds));
 
             $("#songsContainer").append(template);
+
+            let still = STILLS[response[i].uuid];
+
+            if(still !== undefined){
+                let button = $("#still-upload-"+response[i].uuid);
+                button.removeClass("btn-outline-info");
+                button.addClass("btn-outline-danger");
+                button.html("Delete still");
+            }
 
             $("#song-status-"+response[i].uuid).addClass("badge-success");
             $("#song-status-"+response[i].uuid).html("UPLOADED");
