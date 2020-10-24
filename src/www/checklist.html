@@ -22,7 +22,8 @@
     * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
     -->
     <link href="main.css" rel="stylesheet">
-    <link href="css/songs.css" rel="stylesheet">
+    <link href="css/checkbox.css" rel="stylesheet">
+    <link href="css/checklist.css" rel="stylesheet">
 </head>
 <body>
 <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
@@ -123,18 +124,18 @@
                             </a>
                         </li>
                         <li>
-                            <a href="checklist.html" class="">
+                            <a href="#" class="mm-active">
                                 <i class="metismenu-icon pe-7s-note2"></i>
                                 Checklist
                             </a>
                         </li>
-                        <li class="mm-active">
+                        <li class="">
                             <a href="#">
                                 <i class="metismenu-icon pe-7s-tools"></i>
                                 Settings
                                 <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                             </a>
-                            <ul class="mm-show mm-collapse">
+                            <ul class="">
                                 <li>
                                     <a href="lineup-settings.html">
                                         <i class="metismenu-icon"></i>
@@ -142,7 +143,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" class="mm-active">
+                                    <a href="songs.html" class="">
                                         <i class="metismenu-icon"></i>
                                         Songs
                                     </a>
@@ -171,47 +172,70 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="mb-3 card">
-                            <div class="card-header-tab card-header-tab-animation card-header">
-                                <div class="card-header-title">
-                                    <i class="header-icon lnr-apartment icon-gradient bg-love-kiss"> </i>
-                                    Add song
-                                </div>
-                            </div>
+                            <div class="card-header">Recheck</div>
                             <div class="card-body">
-                                <div id="wrapper">
-                                    <input type="file" id="fileInput" multiple accept="audio/mpeg">
-                                    <div id="fileDropBox">Drop the songs here</div>
-
-                                </div>
+                                <button class="mb-2 mr-2 btn-transition btn btn-outline-primary max-width" onclick="refreshChecklist()">
+                                    Recheck
+                                </button>
                             </div>
                         </div>
                     </div>
-
                 </div>
 
                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="main-card mb-3 card">
-                            <div class="card-header">Songs
-                            </div>
-                            <div class="table-responsive">
-                                <table class="align-middle mb-0 table table-borderless table-striped table-hover">
-                                    <thead>
-                                    <tr>
-                                        <th class="text-center">#</th>
-                                        <th>Filename</th>
-                                        <th class="text-center">Duration</th>
-                                        <th class="text-center">Status</th>
-                                        <th class="text-center">Still</th>
-                                        <th class="text-center">Delete</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody id="songsContainer">
+                    <div class="col-12 col-md-4">
+                        <div class="mb-3 card text-white bg-danger" id="atem-connection">
+                            <div class="card-header">Atem mini connection</div>
+                            <div class="card-body " id="atem-connection-err">The Atem mini pro is not connected</div>
+                            <div class="card-body hidden" id="atem-connection-ok">The Atem mini pro is connected</div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div class="mb-3 card text-white bg-danger" id="atem-streaming">
+                            <div class="card-header">Streaming settings</div>
+                            <div class="card-body" id="atem-streaming-err">The streaming settings are not synced with the Atem min pro</div>
+                            <div class="card-body hidden" id="atem-streaming-ok">The streaming settings are synced with the Atem min pro</div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div class="mb-3 card text-white bg-danger" id="atem-dve">
+                            <div class="card-header">DVE settings</div>
+                            <div class="card-body" id="atem-dve-err">The DVE settings are not synced with the Atem min pro</div>
+                            <div class="card-body hidden" id="atem-dve-ok">The DVE settings are synced with the Atem min pro</div>
+                        </div>
+                    </div>
+                </div>
 
+                <div class="row">
+                    <div class="col-12 col-md-4">
+                        <div class="mb-3 card text-white bg-warning" id="song-still">
+                            <div class="card-header">Stills on songs</div>
+                            <div class="card-body" id="song-still-err">At least one song does not have a still associated</div>
+                            <div class="card-body hidden" id="song-still-ok">There is no song without a still associated</div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div class="mb-3 card text-white bg-danger" id="songs">
+                            <div class="card-header">Songs</div>
+                            <div class="card-body" id="songs-err">Some songs are missing</div>
+                            <div class="card-body hidden" id="songs-ok">All song files are present</div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div class="mb-3 card text-white bg-danger" id="still">
+                            <div class="card-header">Stills</div>
+                            <div class="card-body" id="still-err">Some still files are missing</div>
+                            <div class="card-body hidden" id="still-ok">All still files are present</div>
+                        </div>
+                    </div>
+                </div>
 
-                                    </tbody>
-                                </table>
-                            </div>
+                <div class="row">
+                    <div class="col-12 col-md-4">
+                        <div class="mb-3 card text-white bg-danger" id="macro">
+                            <div class="card-header">Macro</div>
+                            <div class="card-body" id="macro-err">Macro not found in the first slot</div>
+                            <div class="card-body hidden" id="macro-ok">Macro found in the first slot</div>
                         </div>
                     </div>
                 </div>
@@ -227,186 +251,82 @@
 <script type="text/javascript" src="js/jquery.min.js"></script>
 
 
-
-<script type="text/javascript">
-    const SONG_TEMPLATE      = '<tr id="song-##UUID##">\n' +
-        '                            <td class="text-center text-muted">##INDEX##</td>\n' +
-        '                            <td>\n' +
-        '                                <div class="widget-content p-0">\n' +
-        '                                    <div class="widget-content-wrapper">\n' +
-        '                                        <div class="widget-content-left flex2">\n' +
-        '                                            <div class="widget-heading">##FILENAME##</div>\n' +
-        '                                            <div class="widget-subheading opacity-7"></div>\n' +
-        '                                        </div>\n' +
-        '                                    </div>\n' +
-        '                                </div>\n' +
-        '                            </td>\n' +
-        '                            <td class="text-center" id="song-duration-##UUID##">##DURATION##</td>\n' +
-        '                            <td class="text-center">\n' +
-        '                                <div class="badge" id="song-status-##UUID##">Uploading</div>\n' +
-        '                            </td>\n' +
-        '                            <td class="text-center">\n' +
-        '                                <button class="mb-2 mr-2 btn btn-outline-info" style="width: 100%" id="still-upload-##UUID##" onclick="stillToggle(\'##UUID##\')">Add still</button>\n' +
-        '                            </td>\n' +
-        '                            <td class="text-center">\n' +
-        '                                <button class="mb-2 mr-2 btn btn-outline-danger" id="song-delete-##UUID##" style="width: 100%" onclick="deleteSong(\'##UUID##\')"><i class="pe-7s-trash"> </i></button>\n' +
-        '                            </td>\n' +
-        '                        </tr>';
-</script>
-
 <script type="text/javascript">
 
     window.$ = window.jQuery = require('./js/jquery.min.js');
 
     const {ipcRenderer} = require('electron');
 
-    let songIndex = 0;
-
-    let STILLS = {};
-
-    (async ()=>{
+    (async () => {
         let version = await backendCommand("getVersion", {});
         $("#version").html(version);
 
-
-
-        await updateSongsList();
+        await refreshChecklist();
     })();
 
-    $("#fileInput").on("change",async function () {
-        let files = [];
+    async function refreshChecklist(){
+        let atemStatus = await backendCommand("getAtemMiniStatus",{});
 
-        for(let i=0;i<this.files.length;i++){
-            let file = this.files[i];
-            if(file.type === "audio/mpeg"){
-                files.push({
-                    name: file.name,
-                    path: file.path
-                });
+        checkPanel("atem-connection",atemStatus.connected);
+
+        checkPanel("atem-streaming",atemStatus.streamingSettingsCheck);
+
+        checkPanel("atem-dve",atemStatus.dveSettingsCheck);
+
+        checkPanel("macro",atemStatus.macroCheck);
+
+        let checkSongs = await backendCommand("checkSongs",{});
+
+        checkPanel("songs",checkSongs.missing.length === 0);
+
+        if(checkSongs.missing.length > 0){
+            let songError = $("#songs-err");
+            songError.html("Some songs are missing<br>");
+            songError.append("<ul>");
+            for(let i=0;i<checkSongs.missing.length;i++){
+                songError.append("<li>"+checkSongs.missing[i].filename+"</li>");
             }
-
+            songError.append("</ul>");
         }
 
-        let response = await backendCommand("uploadSong",files);
+        let checkStills = await backendCommand("checkStills",{});
 
-        for(let i=0;i<response.length;i++){
-            let song = response[i];
+        checkPanel("still",checkStills.missing.length === 0);
 
-            let template = SONG_TEMPLATE;
-
-            template  = template.replace(/##INDEX##/g, ""+songIndex);
-            template  = template.replace(/##UUID##/g, ""+song.uuid);
-            template  = template.replace(/##FILENAME##/g, ""+song.name);
-            template  = template.replace(/##DURATION##/g, "");
-
-            $("#songsContainer").append(template);
-
-            songIndex++;
-
-            let statusElement = $("#song-status-"+song.uuid);
-
-            statusElement.addClass("badge-info");
-            statusElement.html("UPLOADING");
-            $("#song-delete-"+song.uuid).addClass("hide");
-        }
-
-        console.log(response);
-    });
-
-    ipcRenderer.on("songUploadingStatusChange", (event, response)=>{
-        for(let i=0;i<response.length;i++){
-            let statusElement = $("#song-status-"+response[i].uuid);
-            statusElement.removeClass("badge-info");
-            statusElement.addClass("badge-success");
-            statusElement.html("UPLOADED");
-            $("#song-delete-"+response[i].uuid).removeClass("hide");
-            $("#song-duration-"+response[i].uuid).html(formatNumber(response[i].duration.minutes)+":"+formatNumber(response[i].duration.seconds));
-        }
-    });
-
-    async function stillToggle(uuid){
-        let button = $("#still-upload-"+uuid);
-        button.attr("disabled", true);
-        if(STILLS[uuid] === undefined){
-            //Upload new still
-
-            let result = await backendCommand("uploadStill",uuid);
-
-            if(result.status){
-                button.removeClass("btn-outline-info");
-                button.addClass("btn-outline-danger");
-                button.html("Delete still");
-                STILLS[uuid]  = result.data;
+        if(checkStills.missing.length > 0){
+            let stillError = $("#still-err");
+            stillError.html("Some still files are missing<br>");
+            stillError.append("<ul>");
+            for(let i=0;i<checkStills.missing.length;i++){
+                stillError.append("<li>"+checkStills.missing[i].filename+"</li>");
             }
+            stillError.append("</ul>");
+        }
+    }
 
+    function checkPanel(id,statement){
+        let item = $("#"+id);
+        if(statement){
+            item.removeClass("bg-danger");
+            item.addClass("bg-success");
+            $("#"+id+"-err").addClass("hidden");
+            $("#"+id+"-ok").removeClass("hidden");
         }else{
-            //Delete the current still
-
-            let result = await backendCommand("deleteStill",uuid);
-
-            if(result){
-                STILLS[uuid] = undefined;
-                button.addClass("btn-outline-info");
-                button.removeClass("btn-outline-danger");
-                button.html("Add still");
-            }
-
-
-        }
-
-        button.removeAttr("disabled");
-    }
-
-    async function updateSongsList(){
-        let response = await backendCommand("getSongs",{});
-        STILLS = await backendCommand("getStills",{});
-
-        $("#songsContainer").html("");
-
-        songIndex = 0;
-
-        for(let i=0;i<response.length;i++){
-            let template = SONG_TEMPLATE;
-
-            template  = template.replace(/##INDEX##/g, ""+songIndex);
-            template  = template.replace(/##UUID##/g, ""+response[i].uuid);
-            template  = template.replace(/##FILENAME##/g, ""+response[i].filename);
-            template  = template.replace(/##DURATION##/g, formatNumber(response[i].duration.minutes)+":"+formatNumber(response[i].duration.seconds));
-
-            $("#songsContainer").append(template);
-
-            let still = STILLS[response[i].uuid];
-
-            if(still !== undefined){
-                let button = $("#still-upload-"+response[i].uuid);
-                button.removeClass("btn-outline-info");
-                button.addClass("btn-outline-danger");
-                button.html("Delete still");
-            }
-
-            $("#song-status-"+response[i].uuid).addClass("badge-success");
-            $("#song-status-"+response[i].uuid).html("UPLOADED");
-            songIndex++;
+            item.addClass("bg-danger");
+            item.removeClass("bg-success");
+            $("#"+id+"-err").removeClass("hidden");
+            $("#"+id+"-ok").addClass("hidden");
         }
     }
 
-    function addSong(){
-
-    }
-
-    async function deleteSong(uuid){
-        await backendCommand("deleteSong",uuid);
-        await updateSongsList();
-    }
-
-    function formatNumber(number){
-        if(number<10){
-            return "0"+number;
+    function formatNumber(number) {
+        if (number < 10) {
+            return "0" + number;
         }
         return number;
     }
 
-    async function backendCommand(command,options){
+    async function backendCommand(command, options) {
         return new Promise(((resolve) => {
             let listener = (event, response) => {
                 resolve(response);

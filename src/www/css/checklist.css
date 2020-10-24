@@ -1,0 +1,11 @@
+.checklistItem{
+    height: 10rem;
+}
+
+.max-width{
+    width: 100%;
+}
+
+.hidden{
+    display: none;
+}

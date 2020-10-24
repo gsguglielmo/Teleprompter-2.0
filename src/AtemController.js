@@ -20,6 +20,9 @@ class AtemController{
             fs.writeFileSync(PATH.join(__dirname,"debug_new.json"),JSON.stringify(this.#atem.state));
             _this.#onConnected(_this);
         });
+        this.#atem.on("disconnected",()=>{
+            _this.#onDisconnected(_this);
+        })
     }
 
     connect(ipAddress){
@@ -31,6 +34,10 @@ class AtemController{
                 this.#atem.connect(ipAddress);
             }
         }));
+    }
+
+    #onDisconnected(_this){
+        _this.connected = false;
     }
 
     async disconnect(){
@@ -115,6 +122,32 @@ class AtemController{
     key1(){
         if(!this.connected)return;
         return this.#atem.macroRun(0);
+    }
+
+    checkStreamingService(url,key){
+        if(!this.connected)return false;
+        let service = this.#atem.state.streaming.service;
+
+        return service.key === key && service.url === url;
+    }
+
+    checkMacro(){
+        if(!this.connected)return false;
+        return this.#atem.state.macro.macroProperties[0].isUsed;
+    }
+
+    checkDVE(DVE){
+        if(!this.connected)return false;
+        let saved = DVE.settings;
+        let current = this.#atem.state.video.mixEffects[0].upstreamKeyers[0].dveSettings;
+
+        let keys = Object.keys(saved);
+        for(let i=0;i<keys.length;i++){
+            if(saved[keys[i]] !== current[keys[i]]){
+                return false;
+            }
+        }
+        return true;
     }
 
     setStreamingService(url, key){

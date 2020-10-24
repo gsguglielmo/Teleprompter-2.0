@@ -579,6 +579,20 @@ function createWindow (config,oldWindow) {
         event.sender.send('getDVEStyle', save.DVE);
     });
 
+    ipcMain.on('getAtemMiniStatus',async (event,none)=>{
+        let dveStatus = false;
+        if(save.DVE !== undefined){
+            dveStatus = await atemController.checkDVE(save.DVE);
+        }
+
+        event.sender.send('getAtemMiniStatus', {
+            connected: atemController.connected,
+            dveSettingsCheck: dveStatus,
+            streamingSettingsCheck: atemController.checkStreamingService(save.streamingURL,save.streamingKey),
+            macroCheck: atemController.checkMacro()
+        });
+    });
+
     ipcMain.on('setDVEStyle',async (event,DVE)=>{
 
         save.DVE = DVE;
@@ -587,6 +601,42 @@ function createWindow (config,oldWindow) {
         await atemController.setDVE(DVE);
 
         event.sender.send('setDVEStyle', true);
+    });
+
+    ipcMain.on('checkSongs',async (event,none)=>{
+
+        let segments = save.segments;
+
+        let missing = [];
+
+        for(let i=0;i<segments.length;i++){
+            if(parseInt(segments[i].type) !== 1) continue;
+            if(!fs.existsSync(path.join(songsDirectory,segments[i].filename))){
+                missing.push(segments[i]);
+            }
+        }
+
+        event.sender.send('checkSongs', {
+            missing: missing
+        });
+    });
+
+    ipcMain.on('checkStills',async (event,none)=>{
+
+        let stills = save.stills;
+        let keys = Object.keys(stills);
+
+        let missing = [];
+
+        for(let i=0;i<keys.length;i++){
+            if(!fs.existsSync(path.join(DIR,"stills",stills[keys[i]].filename))){
+                missing.push(stills[keys[i]]);
+            }
+        }
+
+        event.sender.send('checkStills', {
+            missing: missing
+        });
     });
 }
 
