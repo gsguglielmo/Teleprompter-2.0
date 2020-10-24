@@ -22,8 +22,7 @@
     * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
     -->
     <link href="main.css" rel="stylesheet">
-    <link href="css/checkbox.css" rel="stylesheet">
-    <link href="css/checklist.css" rel="stylesheet">
+    <link href="css/show.css" rel="stylesheet">
 </head>
 <body>
 <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
@@ -124,18 +123,18 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="mm-active">
+                            <a href="checklist.html" class="">
                                 <i class="metismenu-icon pe-7s-note2"></i>
                                 Checklist
                             </a>
                         </li>
-                        <li class="">
+                        <li class="mm-active">
                             <a href="#">
                                 <i class="metismenu-icon pe-7s-tools"></i>
                                 Settings
                                 <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                             </a>
-                            <ul class="">
+                            <ul class="mm-show mm-collapse">
                                 <li>
                                     <a href="lineup-settings.html">
                                         <i class="metismenu-icon"></i>
@@ -143,25 +142,25 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="songs.html" class="">
+                                    <a href="songs.html">
                                         <i class="metismenu-icon"></i>
                                         Songs
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="streaming.html">
+                                    <a href="streaming.html" >
                                         <i class="metismenu-icon"></i>
                                         Streaming
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="show.html">
+                                    <a href="show.html" >
                                         <i class="metismenu-icon"></i>
                                         Show
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="controller.html">
+                                    <a href="#" class="mm-active">
                                         <i class="metismenu-icon"></i>
                                         Controller
                                     </a>
@@ -174,78 +173,103 @@
         </div>
         <div class="app-main__outer">
             <div class="app-main__inner">
-
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-12 col-md-4">
                         <div class="mb-3 card">
-                            <div class="card-header">Recheck</div>
-                            <div class="card-body">
-                                <button class="mb-2 mr-2 btn-transition btn btn-outline-primary max-width" onclick="refreshChecklist()">
-                                    Recheck
-                                </button>
+                            <div class="card-body"><h5 class="card-title">Controller</h5>
+                                <div class="form-row">
+                                    <div class="col-12">
+                                        <div class="position-relative form-group">
+                                            <label for="vendorId" class="">Vendor id</label>
+                                            <input id="vendorId" maxlength="4" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-12">
+                                        <div class="position-relative form-group">
+                                            <label for="productId" class="">Product id</label>
+                                            <input id="productId" maxlength="4" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="row">
                     <div class="col-12 col-md-4">
-                        <div class="mb-3 card text-white bg-danger" id="atem-connection">
-                            <div class="card-header">Atem mini connection</div>
-                            <div class="card-body " id="atem-connection-err">The Atem mini pro is not connected</div>
-                            <div class="card-body hidden" id="atem-connection-ok">The Atem mini pro is connected</div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-4">
-                        <div class="mb-3 card text-white bg-danger" id="atem-streaming">
-                            <div class="card-header">Streaming settings</div>
-                            <div class="card-body" id="atem-streaming-err">The streaming settings are not synced with the Atem min pro</div>
-                            <div class="card-body hidden" id="atem-streaming-ok">The streaming settings are synced with the Atem min pro</div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-4">
-                        <div class="mb-3 card text-white bg-danger" id="atem-dve">
-                            <div class="card-header">DVE settings</div>
-                            <div class="card-body" id="atem-dve-err">The DVE settings are not synced with the Atem min pro</div>
-                            <div class="card-body hidden" id="atem-dve-ok">The DVE settings are synced with the Atem min pro</div>
-                        </div>
-                    </div>
-                </div>
+                        <div class="mb-3 card">
+                            <div class="card-body"><h5 class="card-title">Mappings</h5>
+                                <div class="form-row">
+                                    <div class="col-12">
+                                        <div class="position-relative form-group">
+                                            <label for="resetMapping" class="">Reset</label>
+                                            <input id="resetMapping" maxlength="1" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-12">
+                                        <div class="position-relative form-group">
+                                            <label for="playMapping" class="">Play</label>
+                                            <input id="playMapping" maxlength="1" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-12">
+                                        <div class="position-relative form-group">
+                                            <label for="pauseMapping" class="">Pause</label>
+                                            <input id="pauseMapping" maxlength="1" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-12">
+                                        <div class="position-relative form-group">
+                                            <label for="nextMapping" class="">Next segment</label>
+                                            <input id="nextMapping" maxlength="1" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
 
-                <div class="row">
-                    <div class="col-12 col-md-4">
-                        <div class="mb-3 card text-white bg-warning" id="song-still">
-                            <div class="card-header">Stills on songs</div>
-                            <div class="card-body" id="song-still-err">At least one song does not have a still associated</div>
-                            <div class="card-body hidden" id="song-still-ok">There is no song without a still associated</div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-4">
-                        <div class="mb-3 card text-white bg-danger" id="songs">
-                            <div class="card-header">Songs</div>
-                            <div class="card-body" id="songs-err">Some songs are missing</div>
-                            <div class="card-body hidden" id="songs-ok">All song files are present</div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-4">
-                        <div class="mb-3 card text-white bg-danger" id="still">
-                            <div class="card-header">Stills</div>
-                            <div class="card-body" id="still-err">Some still files are missing</div>
-                            <div class="card-body hidden" id="still-ok">All still files are present</div>
-                        </div>
-                    </div>
-                </div>
+                                <div class="form-row">
+                                    <div class="col-12">
+                                        <div class="position-relative form-group">
+                                            <label for="prepareMapping" class="">Prepare next segment</label>
+                                            <input id="prepareMapping" maxlength="1" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
 
-                <div class="row">
-                    <div class="col-12 col-md-4">
-                        <div class="mb-3 card text-white bg-danger" id="macro">
-                            <div class="card-header">Macro</div>
-                            <div class="card-body" id="macro-err">Macro not found in the first slot</div>
-                            <div class="card-body hidden" id="macro-ok">Macro found in the first slot</div>
+                            </div>
                         </div>
                     </div>
-                </div>
 
+                    <div class="col-12 col-md-4">
+                        <div class="mb-3 card">
+                            <div class="card-body"><h5 class="card-title">Actions</h5>
+                                <div class="form-row">
+                                    <div class="col-12">
+                                        <div class="form-row">
+                                            <button class="btn btn-outline-primary" style="width: 100%" onclick="save();">Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row" style="margin-top: 15px">
+                                    <div class="col-12">
+                                        <div class="form-row">
+                                            <button class="btn btn-outline-success" style="width: 100%" onclick="connect();">Connect</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
 
@@ -263,73 +287,47 @@
 
     const {ipcRenderer} = require('electron');
 
+    let services = [];
+    let atem;
+    let DVE;
+
     (async () => {
         let version = await backendCommand("getVersion", {});
         $("#version").html(version);
 
-        await refreshChecklist();
+        await loadSettings();
     })();
 
-    async function refreshChecklist(){
-        let atemStatus = await backendCommand("getAtemMiniStatus",{});
+    async function loadSettings(){
+        let settings = await backendCommand("getControllerSettings",{});
+        console.log(settings);
+        $("#vendorId").val(settings.controllerVendor);
+        $("#productId").val(settings.controllerProduct);
 
-        checkPanel("atem-connection",atemStatus.connected);
-
-        checkPanel("atem-streaming",atemStatus.streamingSettingsCheck);
-
-        checkPanel("atem-dve",atemStatus.dveSettingsCheck);
-
-        checkPanel("macro",atemStatus.macroCheck);
-
-        let checkSongs = await backendCommand("checkSongs",{});
-
-        checkPanel("songs",checkSongs.missing.length === 0);
-
-        if(checkSongs.missing.length > 0){
-            let songError = $("#songs-err");
-            songError.html("Some songs are missing<br>");
-            songError.append("<ul>");
-            for(let i=0;i<checkSongs.missing.length;i++){
-                songError.append("<li>"+checkSongs.missing[i].filename+"</li>");
-            }
-            songError.append("</ul>");
-        }
-
-        let checkStills = await backendCommand("checkStills",{});
-
-        checkPanel("still",checkStills.missing.length === 0);
-
-        if(checkStills.missing.length > 0){
-            let stillError = $("#still-err");
-            stillError.html("Some still files are missing<br>");
-            stillError.append("<ul>");
-            for(let i=0;i<checkStills.missing.length;i++){
-                stillError.append("<li>"+checkStills.missing[i].filename+"</li>");
-            }
-            stillError.append("</ul>");
-        }
+        $("#resetMapping").val(settings.controllerMappings.reset);
+        $("#playMapping").val(settings.controllerMappings.start);
+        $("#pauseMapping").val(settings.controllerMappings.pause);
+        $("#nextMapping").val(settings.controllerMappings.next);
+        $("#prepareMapping").val(settings.controllerMappings.prepare);
     }
 
-    function checkPanel(id,statement){
-        let item = $("#"+id);
-        if(statement){
-            item.removeClass("bg-danger");
-            item.addClass("bg-success");
-            $("#"+id+"-err").addClass("hidden");
-            $("#"+id+"-ok").removeClass("hidden");
-        }else{
-            item.addClass("bg-danger");
-            item.removeClass("bg-success");
-            $("#"+id+"-err").removeClass("hidden");
-            $("#"+id+"-ok").addClass("hidden");
+    async function save(){
+        let settings = {
+            controllerVendor: $("#vendorId").val(),
+            controllerProduct: $("#productId").val(),
+            controllerMappings: {
+                reset: $("#resetMapping").val(),
+                start: $("#playMapping").val(),
+                pause: $("#pauseMapping").val(),
+                next: $("#nextMapping").val(),
+                prepare: $("#prepareMapping").val()
+            }
         }
+        await backendCommand("saveControllerSettings",settings);
     }
 
-    function formatNumber(number) {
-        if (number < 10) {
-            return "0" + number;
-        }
-        return number;
+    async function connect(){
+        await backendCommand("connectController", {});
     }
 
     async function backendCommand(command, options) {

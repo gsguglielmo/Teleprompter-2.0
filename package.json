@@ -1,7 +1,7 @@
 {
   "name": "teleprompter2",
   "productName": "Teleprompter 2.0",
-  "version": "0.4.2",
+  "version": "0.4.5",
   "description": "Teleprompter za Radio Verite",
   "main": "src/index.js",
   "scripts": {

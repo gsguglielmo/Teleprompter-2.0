@@ -1,6 +1,6 @@
 const { app, BrowserWindow, ipcMain, screen, dialog } = require('electron');
 const { getAudioDurationInSeconds } = require('get-audio-duration');
-const SerialPort = require('serialport');
+
 const { v4: uuidv4 } = require('uuid');
 
 const {AtemController} = require("./AtemController.js");
@@ -16,6 +16,8 @@ const {GlobalConfig} = require("./globalConfig.js")
 
 let songsDirectory;
 const serialConfig = require("./serialConfig.json");
+
+
 
 let save = {
     "display_index": 0,
@@ -33,31 +35,9 @@ let secondsSinceStart = 0;
 let currentAudio;
 
 
-SerialPort.list().then((ports)=>{
+let {SerialController} = require("./SerialController.js");
 
-    for(let i=0;i<ports.length;i++){
-        let vendor = serialConfig[ports[i]["vendorId"]];
-        if(vendor === undefined){
-            ports[i]["identification"] = {
-                "vendor" : undefined,
-                "product" : undefined
-            }
-        }else{
-            ports[i]["identification"] = {
-                "vendor" : vendor["NAME"],
-                "product" : undefined
-            }
-
-            let product = vendor[ports[i]["productId"]];
-            if(product !== undefined){
-                ports[i]["identification"]["product"] = product["NAME"];
-            }
-        }
-    }
-
-});
-
-
+let serialController;
 save.display_index = 0;
 
 save.show_status = {
@@ -393,47 +373,11 @@ function createWindow (config,oldWindow) {
     });
 
     ipcMain.on('timer-play', async (event, segments) => {
-
-        if(save.show_status.started){
-
-
-
-        }else{
-            let sgmts = save.segments;
-
-            save.show_status.currentSegment = sgmts[0];
-            save.show_status.currentSegmentIndex = 0;
-            save.show_status.currentSegment.started = secondsSinceStart;
-
-            save.show_status.forceNext = sgmts[0].type === 1;
-
-            let duration = save.show_status.currentSegment.duration.split(":");
-
-            save.show_status.segmentTime.minutes = parseInt(duration[0]);
-            save.show_status.segmentTime.seconds = parseInt(duration[1]);
-            save.show_status.description = "";
-            save.show_status.totalTime = {
-                minutes: 0,
-                seconds: 0
-            };
-
-            save.show_status.totalLate = 0;
-
-            if(sgmts.length>1){
-                save.show_status.nextSegment = sgmts[1];
-            }
-            save.show_status.started = true;
-
-            playCurrentSong();
-
-        }
-
-
-        save.show_status.paused = false;
+        timerPlay();
     });
 
     ipcMain.on('timer-pause', async (event, segments) => {
-        save.show_status.paused = true;
+        timerPause();
     });
 
     ipcMain.on('timer-next', async (event, segments) => {
@@ -441,31 +385,7 @@ function createWindow (config,oldWindow) {
     });
 
     ipcMain.on('timer-reset', async (event, segments) => {
-        save.show_status.started = false;
-        save.show_status.paused = true;
-
-        save.show_status.totalTime = {
-            minutes: 0,
-            seconds: 0
-        };
-
-        save.show_status.late = {
-            minutes: 0,
-            seconds: 0
-        };
-
-        save.show_status.segmentTime = {
-            minutes: 0,
-            seconds: 0
-        };
-
-        save.show_status.totalLate = 0;
-        save.show_status.description = "";
-        try{
-            if(currentAudio!==undefined){
-                currentAudio.kill();
-            }
-        }catch (e){}
+        timerReset();
     });
 
     ipcMain.on('set-description', async (event, description) => {
@@ -638,7 +558,158 @@ function createWindow (config,oldWindow) {
             missing: missing
         });
     });
+
+    ipcMain.on('connectController',async (event, none)=>{
+
+        let vendor = save["controllerVendor"]===undefined? "10C4" : save["controllerVendor"];
+        let product = save["controllerProduct"]===undefined? "EA60" : save["controllerProduct"];
+
+        if(serialController !== undefined){
+            serialController.close();
+            serialController = undefined;
+        }
+
+        if(save["controllerMappings"] === undefined){
+            save["controllerMappings"] = {
+                next: "a",
+                reset: "b",
+                pause: "c",
+                prepare: "d",
+                start: "e"
+            }
+        }
+
+        serialController = new SerialController(vendor,product,save["controllerMappings"]);
+
+        serialController.onKeyPressedCallback((res)=>{
+            switch (res){
+                case "next":
+                    nextSegment()
+                    break;
+                case "reset":
+                    timerReset()
+                    break;
+                case "pause":
+                    timerPause()
+                    break;
+                case "prepare":
+
+                    break;
+                case "start":
+                    timerPlay();
+                    break;
+            }
+        })
+
+
+        event.sender.send('connectController', {});
+    });
+
+    ipcMain.on('saveControllerSettings',async (event, settings)=>{
+
+        save["controllerVendor"] = settings.controllerVendor;
+        save["controllerProduct"] = settings.controllerProduct;
+
+        save["controllerMappings"] = settings.controllerMappings;
+
+        saveSettingsToDisk().then();
+
+        event.sender.send('saveControllerSettings', true);
+    });
+
+    ipcMain.on('getControllerSettings',async (event, settings)=>{
+
+        if(save["controllerMappings"] === undefined){
+            save["controllerMappings"] = {
+                next: "a",
+                reset: "b",
+                pause: "c",
+                prepare: "d",
+                start: "e"
+            }
+            saveSettingsToDisk().then();
+        }
+
+        event.sender.send('getControllerSettings', {
+            controllerVendor: save["controllerVendor"],
+            controllerProduct: save["controllerProduct"],
+            controllerMappings: save["controllerMappings"]
+        });
+    });
+
 }
+
+function timerPlay(){
+    if(save.show_status.started){
+
+
+
+    }else{
+        let sgmts = save.segments;
+
+        save.show_status.currentSegment = sgmts[0];
+        save.show_status.currentSegmentIndex = 0;
+        save.show_status.currentSegment.started = secondsSinceStart;
+
+        save.show_status.forceNext = sgmts[0].type === 1;
+
+        let duration = save.show_status.currentSegment.duration.split(":");
+
+        save.show_status.segmentTime.minutes = parseInt(duration[0]);
+        save.show_status.segmentTime.seconds = parseInt(duration[1]);
+        save.show_status.description = "";
+        save.show_status.totalTime = {
+            minutes: 0,
+            seconds: 0
+        };
+
+        save.show_status.totalLate = 0;
+
+        if(sgmts.length>1){
+            save.show_status.nextSegment = sgmts[1];
+        }
+        save.show_status.started = true;
+
+        playCurrentSong();
+
+    }
+
+
+    save.show_status.paused = false;
+}
+
+function timerPause(){
+    save.show_status.paused = true;
+}
+
+function timerReset(){
+    save.show_status.started = false;
+    save.show_status.paused = true;
+
+    save.show_status.totalTime = {
+        minutes: 0,
+        seconds: 0
+    };
+
+    save.show_status.late = {
+        minutes: 0,
+        seconds: 0
+    };
+
+    save.show_status.segmentTime = {
+        minutes: 0,
+        seconds: 0
+    };
+
+    save.show_status.totalLate = 0;
+    save.show_status.description = "";
+    try{
+        if(currentAudio!==undefined){
+            currentAudio.kill();
+        }
+    }catch (e){}
+}
+
 
 //app.whenReady().then(createWindow);
 exports.createWindow = createWindow;
